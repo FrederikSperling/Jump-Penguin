@@ -190,7 +190,7 @@ class Enemy:
 
     def move(self):
         self.x -= self.vel
-        if self.x == 0 -self.width:
+        if self.x > 0 - self.width:
             self.x = 1000
             #self.vel = self.vel + 1
 
