@@ -273,4 +273,4 @@ while run:
 
 pygame.QUIT
 
-#test suka 2
+#test suka 3
