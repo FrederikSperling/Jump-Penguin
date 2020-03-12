@@ -272,3 +272,5 @@ while run:
     pygame.display.update()
 
 pygame.QUIT
+
+test suka
