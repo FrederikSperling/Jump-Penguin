@@ -39,7 +39,7 @@ class Menu:
                   pygame.image.load('menu\BGAnimation\MainMenu4.png'),
                   pygame.image.load('menu\BGAnimation\MainMenu5.png'),
                   pygame.image.load('startScene\MainMenu6.png')]
-        if PlayStart == True:
+        if PlayStart == True: #Animation for baggrunden i menuen og startscenen
             if self.AntalBilleder1 < 10:
                 if self.ImageNRAnimation > 4: #Resetter listen af billeder
                     self.ImageNRAnimation = 0
@@ -239,12 +239,14 @@ pointSystem = PointSystem(0, 400)
 Menu = Menu(3, 0, 0, 0)
 Sound = Sound()
 startScene = StartScene()
-PlayStart = False #Skal flyttes senere
-startspil = False #Skal flyttes senere
+
+# todo Skal flyttes senere
+PlayStart = False
+startspil = False
 StopDrawing = False
 ControlsStart = False
 QuitStart = False
-RunMouseButton = True
+RunMouseButton = True #Gør så man ikke kan trykke på knapperne efter de bliver fjernet
 
 Sound.Music2()
 run = True
@@ -273,4 +275,4 @@ while run:
 
 pygame.QUIT
 
-#test suka 3
+#Test 3
