@@ -14,16 +14,13 @@ Foreground = pygame.image.load('resources\images\Foreground.png')
 char = pygame.image.load("resources\images\L1.png")
 enemy = pygame.image.load("resources\images\L1E.png")
 
+
 class Sound:
     def __init__(self):
         pass
     def Music1(self):
-        pygame.mixer.music.load('audio/Song1.mp3')
-        #pygame.mixer.music.play()
+        pass
 
-    def Music2(self):
-        pygame.mixer.music.load('audio/CookingByTheBook.mp3')
-        #pygame.mixer.music.play()
 
 class Menu:
     def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin):
@@ -242,13 +239,12 @@ startScene = StartScene()
 
 # todo Skal flyttes senere
 PlayStart = False
-startspil = False
+startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
 StopDrawing = False
 ControlsStart = False
 QuitStart = False
 RunMouseButton = True #Gør så man ikke kan trykke på knapperne efter de bliver fjernet
 
-Sound.Music2()
 run = True
 while run:
     for event in pygame.event.get():
@@ -274,5 +270,3 @@ while run:
     pygame.display.update()
 
 pygame.QUIT
-
-#Test 3
