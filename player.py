@@ -1,19 +1,20 @@
 import pygame, sys, os, time
 
 #Pygame setup
-win = pygame.display.set_mode((1000,500))
+win = pygame.display.set_mode((1000, 500))
 pygame.display.set_caption("PenguinGame")
 pygame.init()
 clock = pygame.time.Clock()
 
 #Billeder
+playagain = pygame.image.load("resources\images\PlayAgain.png")
 Trees = pygame.image.load('resources\images\Trees1.png')
 mBG = pygame.image.load('resources\images\Mountain.png')
 Snowman = pygame.image.load('resources\images\Snowman001.png')
 Foreground = pygame.image.load('resources\images\Foreground.png')
-char = pygame.image.load("resources\images\L1.png")
-enemy = pygame.image.load("resources\images\L1E.png")
-
+char = pygame.image.load("resources\images\char.png")
+enemy = pygame.image.load("resources\images\L1.png")
+controlsScreen = pygame.image.load("resources\images\Controls.png")
 
 class Sound:
     def __init__(self):
@@ -149,12 +150,33 @@ class Player1:
             self.h = heigth
             self.Jump = False
             self.JumpCount = 7
-            #self.hitbox = (self.x + 20, self.y, 28, 60)
+            self.hitbox = (self.x + 25, self.y + 29, 50, 56)
+            self.neg = 1
 
 
     def sprite(self,win):
         win.blit(char, (self.x, self.y))
-        #pygame.draw.rect(win, (255, 0, 0), self.hitbox,2)
+        self.hitbox = (self.x + 25, self.y + 29, 50, 56)
+
+    def hit(self):
+        self.x = 60
+        self.y = 375
+        font1 = pygame.font.SysFont("comicsans",100)
+        text = font1.render("game over",1, (255,0,0))
+        win.blit(text, (325, 120))
+        win.blit(playagain, (400, 250))
+        pygame.display.update()
+        RunMouseButton = True
+        pause = True
+        while pause:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    mx, my = pygame.mouse.get_pos()
+                    if RunMouseButton == True:
+                        if 400 + 200 > mx > 400 and 250 + 66 > my > 250:  # Her tjekkes om musen er inde i "Play again" hitboxen
+                            pause = False
 
     def Jumping(self):
         keys = pygame.key.get_pressed()
@@ -179,17 +201,20 @@ class Enemy:
         self.y = y
         self.width = width
         self.heigth = heigth
-        self.vel = 5
-        self.hitbox = (self.x + 20, self.y, 28, 60)
+        self.vel = 10
+        self.hitbox = (self.x + 17, self.y + 11, 29, 52)
     def draw(self,win):
         win.blit(enemy, (self.x, self.y))
-        #pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
+        self.hitbox = (self.x + 17, self.y + 11, 29, 52)
 
     def move(self):
         self.x -= self.vel
-        if self.x == 0 -self.width:
+        if self.x < 0 - self.width:
             self.x = 1000
-            #self.vel = self.vel + 1
+            self.vel += 1
+    def hit(self):
+        self.x = 1000
+        self.y = 395
 
 
 
@@ -215,7 +240,11 @@ def RedrawGameWindow():
                 Menu.Door()
                 startScene.polarBearAnimation()
             elif ControlsStart == True:
-                win.fill((255, 0, 0))
+                Menu.MountainBG()
+                Menu.animation()
+                Menu.FlossingPingvin()
+                Menu.Door()
+                win.blit(controlsScreen, (0, 0))
             elif QuitStart == True:
                 quit()
             else:
@@ -229,8 +258,8 @@ def RedrawGameWindow():
                 Menu.ControlsText()
                 Menu.QuitText()
 
-man = Player1(50, 400, 50, 50)
-obstacle = Enemy(1000, 400, 50, 50)
+man = Player1(50, 375, 50, 50)
+obstacle = Enemy(1000, 395, 50, 50)
 movBGs = MovBGs(3, 10, 10)
 pointSystem = PointSystem(0, 400)
 Menu = Menu(3, 0, 0, 0)
@@ -239,7 +268,7 @@ startScene = StartScene()
 
 # todo Skal flyttes senere
 PlayStart = False
-startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
+startspil = True #Bliver ikke brugt pt, men det sætter selve spillet igang
 StopDrawing = False
 ControlsStart = False
 QuitStart = False
@@ -247,6 +276,11 @@ RunMouseButton = True #Gør så man ikke kan trykke på knapperne efter de blive
 
 run = True
 while run:
+    if man.hitbox[1] < obstacle.hitbox[1] + obstacle.hitbox[3] and man.hitbox[1] + man.hitbox[3] > obstacle.hitbox[1]:
+        if man.hitbox[0] + man.hitbox[2] > obstacle.hitbox[0] and man.hitbox[0] < obstacle.hitbox[0] + obstacle.hitbox[2]:
+            man.hit()
+            obstacle.hit()
+            pointSystem = PointSystem(0, 400)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -257,7 +291,7 @@ while run:
                 if 413 + 180 > mx > 413 and 158 + 80 > my > 158:  # Her tjekkes om musen er inde i "Play" hitboxen
                     PlayStart = True
                     RunMouseButton = False
-                elif 320 + 357 > mx > 320 and 285 + 80 > my > 285:  # Her tjekkes om musen er inde i "Controls" hitbox # todo mangler en baggrund
+                elif 320 + 357 > mx > 320 and 285 + 80 > my > 285:  # Her tjekkes om musen er inde i "Controls" hitbox # todo mangler en baggrund og en knap der fører tilbage til main menu
                     win.fill((255, 0, 0))
                     RunMouseButton = False
                     ControlsStart = True
