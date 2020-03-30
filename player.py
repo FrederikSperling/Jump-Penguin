@@ -268,7 +268,7 @@ startScene = StartScene()
 
 # todo Skal flyttes senere
 PlayStart = False
-startspil = True #Bliver ikke brugt pt, men det sætter selve spillet igang
+startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
 StopDrawing = False
 ControlsStart = False
 QuitStart = False
