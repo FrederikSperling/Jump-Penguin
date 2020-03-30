@@ -272,7 +272,27 @@ startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
 StopDrawing = False
 ControlsStart = False
 QuitStart = False
-RunMouseButton = True #Gør så man ikke kan trykke på knapperne efter de bliver fjernet
+
+class Buttons:
+    RunMouseButton = True  # Gør så man ikke kan trykke på knapperne efter de bliver fjernet
+    mx, my = pygame.mouse.get_pos()
+
+    def __init__(self):
+        pass
+
+    def PlayButton(self):
+        global RunMouseButton
+        global PlayStart
+        print(mx, my)
+        if RunMouseButton == True:
+            if 413 + 180 > mx > 413 and 158 + 80 > my > 158:  # Her tjekkes om musen er inde i "Play" hitboxen
+                PlayStart = True
+                RunMouseButton = False
+
+    def ControlsButton(self):
+        pass
+    def QuitButton(self):
+        pass
 
 run = True
 while run:
@@ -287,18 +307,21 @@ while run:
             quit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
+            print(mx, my)
             if RunMouseButton == True:
                 if 413 + 180 > mx > 413 and 158 + 80 > my > 158:  # Her tjekkes om musen er inde i "Play" hitboxen
                     PlayStart = True
                     RunMouseButton = False
                 elif 320 + 357 > mx > 320 and 285 + 80 > my > 285:  # Her tjekkes om musen er inde i "Controls" hitbox # todo mangler en baggrund og en knap der fører tilbage til main menu
                     win.fill((255, 0, 0))
-                    RunMouseButton = False
                     ControlsStart = True
                 elif 423 + 147 > mx > 423 and 400 + 80 > my > 400:  # Her tjekkes om musen er inde i "Quit" hitbox # todo mangler en baggrund
                     win.fill((0, 255, 0))
                     RunMouseButton = False
                     QuitStart = True
+                elif ControlsStart == True:
+                    if 432 + 133 > mx > 432 and 368 + 42 > my > 368:
+                        ControlsStart = False
 
     RedrawGameWindow()
     pygame.display.update()
