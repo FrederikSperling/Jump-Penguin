@@ -177,6 +177,8 @@ class Player1:
                     if RunMouseButton == True:
                         if 400 + 200 > mx > 400 and 250 + 66 > my > 250:  # Her tjekkes om musen er inde i "Play again" hitboxen
                             pause = False
+                            self.Jump = False
+                            self.JumpCount = 7
 
     def Jumping(self):
         keys = pygame.key.get_pressed()
@@ -258,23 +260,7 @@ def RedrawGameWindow():
                 Menu.ControlsText()
                 Menu.QuitText()
 
-man = Player1(50, 375, 50, 50)
-obstacle = Enemy(1000, 395, 50, 50)
-movBGs = MovBGs(3, 10, 10)
-pointSystem = PointSystem(0, 400)
-Menu = Menu(3, 0, 0, 0)
-Sound = Sound()
-startScene = StartScene()
-
-# todo Skal flyttes senere
-PlayStart = False
-startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
-StopDrawing = False
-ControlsStart = False
-QuitStart = False
-
 class Buttons:
-    RunMouseButton = True  # Gør så man ikke kan trykke på knapperne efter de bliver fjernet
     mx, my = pygame.mouse.get_pos()
 
     def __init__(self):
@@ -282,18 +268,58 @@ class Buttons:
 
     def PlayButton(self):
         global RunMouseButton
+        global RunMouseButton2
         global PlayStart
         print(mx, my)
-        if RunMouseButton == True:
+        if RunMouseButton == True and RunMouseButton2 == True:
             if 413 + 180 > mx > 413 and 158 + 80 > my > 158:  # Her tjekkes om musen er inde i "Play" hitboxen
                 PlayStart = True
                 RunMouseButton = False
+                RunMouseButton2 = False
 
     def ControlsButton(self):
-        pass
-    def QuitButton(self):
-        pass
+        global RunMouseButton
+        global RunMouseButton2
+        global ControlsStart
+        if RunMouseButton == True and RunMouseButton2 == True:
+            if 320 + 357 > mx > 320 and 285 + 80 > my > 285:  # Her tjekkes om musen er inde i "Controls" hitbox # todo mangler en baggrund og en knap der fører tilbage til main menu
+                win.fill((255, 0, 0))
+                ControlsStart = True
+                RunMouseButton2 = False
+        if ControlsStart == True and RunMouseButton2 == False:
+            if 432 + 133 > mx > 432 and 368 + 42 > my > 368:
+                ControlsStart = False
+                RunMouseButton2 = True
 
+    def QuitButton(self):
+        global RunMouseButton
+        global RunMouseButton2
+        global QuitStart
+        if RunMouseButton == True and RunMouseButton2 == True:
+            if 423 + 147 > mx > 423 and 400 + 80 > my > 400:  # Her tjekkes om musen er inde i "Quit" hitbox # todo mangler en baggrund
+                win.fill((0, 255, 0))
+                RunMouseButton = False
+                RunMouseButton2 = False
+                QuitStart = True
+
+man = Player1(50, 375, 50, 50)
+obstacle = Enemy(1000, 395, 50, 50)
+movBGs = MovBGs(3, 10, 10)
+pointSystem = PointSystem(0, 400)
+Menu = Menu(3, 0, 0, 0)
+Sound = Sound()
+startScene = StartScene()
+buttons = Buttons()
+
+
+# todo Skal flyttes senere
+PlayStart = False
+startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
+StopDrawing = False
+ControlsStart = False
+QuitStart = False
+RunMouseButton = True  # Gør så man ikke kan trykke på knapperne efter de bliver fjernet
+RunMouseButton2 = True
 run = True
 while run:
     if man.hitbox[1] < obstacle.hitbox[1] + obstacle.hitbox[3] and man.hitbox[1] + man.hitbox[3] > obstacle.hitbox[1]:
@@ -308,20 +334,9 @@ while run:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
             print(mx, my)
-            if RunMouseButton == True:
-                if 413 + 180 > mx > 413 and 158 + 80 > my > 158:  # Her tjekkes om musen er inde i "Play" hitboxen
-                    PlayStart = True
-                    RunMouseButton = False
-                elif 320 + 357 > mx > 320 and 285 + 80 > my > 285:  # Her tjekkes om musen er inde i "Controls" hitbox # todo mangler en baggrund og en knap der fører tilbage til main menu
-                    win.fill((255, 0, 0))
-                    ControlsStart = True
-                elif 423 + 147 > mx > 423 and 400 + 80 > my > 400:  # Her tjekkes om musen er inde i "Quit" hitbox # todo mangler en baggrund
-                    win.fill((0, 255, 0))
-                    RunMouseButton = False
-                    QuitStart = True
-                elif ControlsStart == True:
-                    if 432 + 133 > mx > 432 and 368 + 42 > my > 368:
-                        ControlsStart = False
+            buttons.PlayButton()
+            buttons.ControlsButton()
+            buttons.QuitButton()
 
     RedrawGameWindow()
     pygame.display.update()
