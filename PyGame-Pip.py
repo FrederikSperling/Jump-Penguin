@@ -40,8 +40,11 @@ image8 = pygame.image.load('images/jumpingpip2.png')
 image9 = pygame.image.load('images/jumpingpip3.png')
 image10 = pygame.image.load('images/jumpingpip4.png')
 image11 = pygame.image.load('images/jumpingpip5.png')
-
-
+image12 = pygame.image.load('images/deadpip1.png')
+image13 = pygame.image.load('images/deadpip2.png')
+image14 = pygame.image.load('images/deadpip3.png')
+image15 = pygame.image.load('images/deadpip4.png')
+image16 = pygame.image.load('images/deadpip5.png')
 
 pygame.init()
 screen = pygame.display.set_mode((400, 300))
