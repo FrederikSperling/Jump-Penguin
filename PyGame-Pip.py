@@ -35,6 +35,12 @@ image3 = pygame.image.load('images/3.png')
 image4 = pygame.image.load('images/4.png')
 image5 = pygame.image.load('images/5.png')
 image6 = pygame.image.load('images/6.png')
+image7 = pygame.image.load('images/jumpingpip1.png')
+image8 = pygame.image.load('images/jumpingpip2.png')
+image9 = pygame.image.load('images/jumpingpip3.png')
+image10 = pygame.image.load('images/jumpingpip4.png')
+image11 = pygame.image.load('images/jumpingpip5.png')
+
 
 
 pygame.init()
