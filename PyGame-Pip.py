@@ -29,12 +29,12 @@ class Player:
         self.x=self.x + self.xSpeed
         self.y=self.y + self.ySpeed
 
-image1 = pygame.image.load('images/1.png')
-image2 = pygame.image.load('images/2.png')
-image3 = pygame.image.load('images/3.png')
-image4 = pygame.image.load('images/4.png')
-image5 = pygame.image.load('images/5.png')
-image6 = pygame.image.load('images/6.png')
+image1 = pygame.image.load('images/pip1.png')
+image2 = pygame.image.load('images/pip2.png')
+image3 = pygame.image.load('images/pip3.png')
+image4 = pygame.image.load('images/pip4.png')
+image5 = pygame.image.load('images/pip5.png')
+image6 = pygame.image.load('images/pip6.png')
 image7 = pygame.image.load('images/jumpingpip1.png')
 image8 = pygame.image.load('images/jumpingpip2.png')
 image9 = pygame.image.load('images/jumpingpip3.png')
