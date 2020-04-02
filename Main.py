@@ -33,7 +33,7 @@ image14 = pygame.image.load('resources\images\deadpip3.png')
 image15 = pygame.image.load('resources\images\deadpip4.png')
 image16 = pygame.image.load('resources\images\deadpip5.png')
 
-FurnaceStop = False
+FurnaceStop = False #todo Virker ikke
 
 #Pygame mixer
 mixer.init()
