@@ -350,7 +350,7 @@ buttons = Buttons()
 
 # todo Skal flyttes senere
 PlayStart = False
-startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
+startspil = True #Bliver ikke brugt pt, men det sætter selve spillet igang
 StopDrawing = False
 ControlsStart = False
 QuitStart = False
