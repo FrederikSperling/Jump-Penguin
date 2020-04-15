@@ -33,24 +33,16 @@ image14 = pygame.image.load('resources\images\deadpip3.png')
 image15 = pygame.image.load('resources\images\deadpip4.png')
 image16 = pygame.image.load('resources\images\deadpip5.png')
 
-FurnaceStop = False #todo Virker ikke
-
 #Pygame mixer
 mixer.init()
 
-class Sound:
-    def __init__(self):
-        pass
-    def Music1(self):
-        pass
-
-
 class Menu:
-    def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin):
+    def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid):
         self.ImageNRAnimation = ImageNRAnimation
         self.ImageNRFlossPingvin = ImageNRFlossPingvin
         self.repeats = Repeats
         self.AntalBilleder1 = AntalBilleder1
+        self.Tid = SceneTid
 
     def animation(self):
         menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
@@ -59,19 +51,50 @@ class Menu:
                   pygame.image.load('menu\BGAnimation\MainMenu4.png'),
                   pygame.image.load('menu\BGAnimation\MainMenu5.png'),
                   pygame.image.load('startScene\MainMenu6.png')]
+
+        Door1 = pygame.image.load('menu\DoorAnimation\Door1.png')
+        Door2 = pygame.image.load('menu\DoorAnimation\Door2.png')
+        Door3 = pygame.image.load('menu\DoorAnimation\Door3.png')
         if PlayStart == True: #Animation for baggrunden i menuen og startscenen
             mixer.music.load('resources\soundEffects\Furnace.mp3')
-            mixer.music.play()
-            if self.AntalBilleder1 < 10:
+            if self.AntalBilleder1 < 30:
+                clock.tick(30)
+                mixer.music.play()
                 if self.ImageNRAnimation > 4: #Resetter listen af billeder
                     self.ImageNRAnimation = 0
                 win.blit(menuBG[self.ImageNRAnimation], (0, 0))
                 self.ImageNRAnimation += 1 #Skifter vores baggrund i menuen så den bliver animeret
                 self.AntalBilleder1 += 1
+                win.blit(Door1, (0, 0))
             else:
+                self.Tid == -60
                 win.blit(menuBG[5], (0, 0))
-                mixer.music.pause()
-                FurnaceStop == True
+                mixer.music.stop()
+                self.Tid += 1
+                print(self.Tid)
+                if self.Tid <= 9:
+                    win.blit(Door1, (0, 0))
+                if self.Tid >= 10 and self.Tid <= 20:
+                    win.blit(Door2, (0, 0))
+                if self.Tid >= 10 and self.Tid <= 25:
+                    win.blit(image1, (102, 170))
+                if self.Tid >= 21:
+                    win.blit(Door3, (0, 0))
+                if self.Tid >= 26 and self.Tid <= 27:
+                    win.blit(image1, (102, 165))
+                if self.Tid >= 28 and self.Tid <= 29:
+                    win.blit(image1, (102, 155))
+                if self.Tid >= 30 and self.Tid <= 31:
+                    win.blit(image1, (102, 170))
+                if self.Tid >= 32 and self.Tid <= 33:
+                    win.blit(image1, (102, 180))
+                if self.Tid >= 34 and self.Tid <= 35:
+                    win.blit(image1, (102, 190))
+                if self.Tid >= 36 and self.Tid <= 37:
+                    win.blit(image1, (102, 200))
+                if self.Tid >= 38 and self.Tid <= 39:
+                    win.blit(image1, (102, 210))
+
 
         else:
             if self.ImageNRAnimation > 4:
@@ -100,10 +123,8 @@ class Menu:
         win.blit(QuitText, (0, 190))
 
     def Door(self):
-        global FurnaceStop
         Door = pygame.image.load('startScene\Door.png')
-        if FurnaceStop == False:
-            win.blit(Door, (0, 0))
+        win.blit(Door, (0, 0))
 
     def FlossingPingvin(self):
         FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin4.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png')]
@@ -113,19 +134,9 @@ class Menu:
         self.ImageNRFlossPingvin += 1 #Skifter vores baggrund i menuen så den bliver animeret
 
 
-class StartScene:
-    def __init__(self):
-        pass
-    def polarBearAnimation(self):
-        pass
-    def PenguinOutOfTheHouse(self):
-        Door1 = pygame.image.load('menu\DoorAnimation\Door1.png')
-        Door2 = pygame.image.load('menu\DoorAnimation\Door2.png')
-        Door3 = pygame.image.load('menu\DoorAnimation\Door3.png')
-        if FurnaceStop == True:
-            win.blit(Door1, (0, 0))
-            win.blit(Door2, (0, 0))
-            win.blit(Door3, (0, 0))
+
+
+
 
 
 class MovBGs:
@@ -270,12 +281,9 @@ def RedrawGameWindow():
             Player1.Jumping(0)
         else:
             if PlayStart == True: #Resten af startscenen placeres herinde og laver en cutscene
-                clock.tick(3)
                 Menu.MountainBG()
                 Menu.animation()
                 Menu.FlossingPingvin()
-                startScene.polarBearAnimation()
-                startScene.PenguinOutOfTheHouse()
             elif ControlsStart == True:
                 Menu.MountainBG()
                 Menu.animation()
@@ -294,7 +302,7 @@ def RedrawGameWindow():
                 Menu.PlayText()
                 Menu.ControlsText()
                 Menu.QuitText()
-                win.blit(image1, (102, 170))
+
 
 class Buttons:
     mx, my = pygame.mouse.get_pos()
@@ -342,15 +350,13 @@ man = Player1(50, 375, 50, 50)
 obstacle = Enemy(1000, 395, 50, 50)
 movBGs = MovBGs(3, 10, 10)
 pointSystem = PointSystem(0, 400)
-Menu = Menu(3, 0, 0, 0)
-Sound = Sound()
-startScene = StartScene()
+Menu = Menu(3, 0, 0, 0, 0)
 buttons = Buttons()
 
 
 # todo Skal flyttes senere
 PlayStart = False
-startspil = True #Bliver ikke brugt pt, men det sætter selve spillet igang
+startspil = False #Bliver ikke brugt pt, men det sætter selve spillet igang
 StopDrawing = False
 ControlsStart = False
 QuitStart = False
