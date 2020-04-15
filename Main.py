@@ -32,9 +32,30 @@ image13 = pygame.image.load('resources\images\deadpip2.png')
 image14 = pygame.image.load('resources\images\deadpip3.png')
 image15 = pygame.image.load('resources\images\deadpip4.png')
 image16 = pygame.image.load('resources\images\deadpip5.png')
+menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
+                  pygame.image.load('menu\BGAnimation\MainMenu2.png'),
+                  pygame.image.load('menu\BGAnimation\MainMenu3.png'),
+                  pygame.image.load('menu\BGAnimation\MainMenu4.png'),
+                  pygame.image.load('menu\BGAnimation\MainMenu5.png'),
+                  pygame.image.load('startScene\MainMenu6.png')]
 
+Door1 = pygame.image.load('menu\DoorAnimation\Door1.png')
+Door2 = pygame.image.load('menu\DoorAnimation\Door2.png')
+Door3 = pygame.image.load('menu\DoorAnimation\Door3.png')
+menuBG2 = pygame.image.load('menu\MenuMountain.png')
+JumpPenguinText = pygame.image.load('menu\JumpPenguinText.png')
+PlayText = pygame.image.load('menu\PlayText.png')
+ControlsText = pygame.image.load('menu\ControlsText.png')
+QuitText = pygame.image.load('menu\QuitText.png')
+FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png'),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png'),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png'),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin4.png'),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png'),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png')]
 #Pygame mixer
 mixer.init()
+mixer.music.load('resources\soundEffects\Furnace.mp3')
 
 class Menu:
     def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid):
@@ -45,20 +66,11 @@ class Menu:
         self.Tid = SceneTid
 
     def animation(self):
-        menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu2.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu3.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu4.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu5.png'),
-                  pygame.image.load('startScene\MainMenu6.png')]
 
-        Door1 = pygame.image.load('menu\DoorAnimation\Door1.png')
-        Door2 = pygame.image.load('menu\DoorAnimation\Door2.png')
-        Door3 = pygame.image.load('menu\DoorAnimation\Door3.png')
         if PlayStart == True: #Animation for baggrunden i menuen og startscenen
-            mixer.music.load('resources\soundEffects\Furnace.mp3')
+
             if self.AntalBilleder1 < 30:
-                clock.tick(30)
+                clock.tick(5)
                 mixer.music.play()
                 if self.ImageNRAnimation > 4: #Resetter listen af billeder
                     self.ImageNRAnimation = 0
@@ -67,11 +79,11 @@ class Menu:
                 self.AntalBilleder1 += 1
                 win.blit(Door1, (0, 0))
             else:
-                self.Tid == -60
+                clock.tick(60)
                 win.blit(menuBG[5], (0, 0))
                 mixer.music.stop()
-                self.Tid += 1
                 print(self.Tid)
+                self.Tid += 1
                 if self.Tid <= 9:
                     win.blit(Door1, (0, 0))
                 if self.Tid >= 10 and self.Tid <= 20:
@@ -103,31 +115,24 @@ class Menu:
             self.ImageNRAnimation += 1
 
     def MountainBG(self):
-        menuBG2 = pygame.image.load('menu\MenuMountain.png')
         win.blit(menuBG2, (0, -150))
 
     def jumpPenguinText(self):
-        JumpPenguinText = pygame.image.load('menu\JumpPenguinText.png')
         win.blit(JumpPenguinText, (0, 0))
 
     def PlayText(self):
-        PlayText = pygame.image.load('menu\PlayText.png')
         win.blit(PlayText, (0, -50))
 
     def ControlsText(self):
-        ControlsText = pygame.image.load('menu\ControlsText.png')
         win.blit(ControlsText, (0, 70))
 
     def QuitText(self):
-        QuitText = pygame.image.load('menu\QuitText.png')
         win.blit(QuitText, (0, 190))
 
     def Door(self):
-        Door = pygame.image.load('startScene\Door.png')
-        win.blit(Door, (0, 0))
+        win.blit(Door1, (0, 0))
 
     def FlossingPingvin(self):
-        FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin4.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png'), pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png')]
         if self.ImageNRFlossPingvin > 5: #Resetter listen af billeder
             self.ImageNRFlossPingvin = 0
         win.blit(FlossingPingvinBilleder[self.ImageNRFlossPingvin], (750, 250))
