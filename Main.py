@@ -8,51 +8,51 @@ pygame.init()
 clock = pygame.time.Clock()
 
 #Billeder
-playagain = pygame.image.load("resources\images\PlayAgain.png")
-Trees = pygame.image.load('resources\images\Trees1.png')
-mBG = pygame.image.load('resources\images\Mountain.png')
-Snowman = pygame.image.load('resources\images\Snowman001.png')
-Foreground = pygame.image.load('resources\images\Foreground.png')
-char = pygame.image.load("resources\images\char.png")
-enemy = pygame.image.load("resources\images\L1.png")
-controlsScreen = pygame.image.load("resources\images\Controls.png")
-image1 = pygame.image.load('resources\images\Pip1.png')
-image2 = pygame.image.load('resources\images\Pip2.png')
-image3 = pygame.image.load('resources\images\Pip3.png')
-image4 = pygame.image.load('resources\images\Pip4.png')
-image5 = pygame.image.load('resources\images\Pip5.png')
-image6 = pygame.image.load('resources\images\Pip6.png')
-image7 = pygame.image.load('resources\images\jumpingpip1.png')
-image8 = pygame.image.load('resources\images\jumpingpip2.png')
-image9 = pygame.image.load('resources\images\jumpingpip3.png')
-image10 = pygame.image.load('resources\images\jumpingpip4.png')
-image11 = pygame.image.load('resources\images\jumpingpip5.png')
-image12 = pygame.image.load('resources\images\deadpip1.png')
-image13 = pygame.image.load('resources\images\deadpip2.png')
-image14 = pygame.image.load('resources\images\deadpip3.png')
-image15 = pygame.image.load('resources\images\deadpip4.png')
-image16 = pygame.image.load('resources\images\deadpip5.png')
-menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu2.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu3.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu4.png'),
-                  pygame.image.load('menu\BGAnimation\MainMenu5.png'),
-                  pygame.image.load('startScene\MainMenu6.png')]
+playagain = pygame.image.load("resources\images\PlayAgain.png").convert_alpha()
+Trees = pygame.image.load('resources\images\Trees1.png').convert_alpha()
+mBG = pygame.image.load('resources\images\Mountain.png').convert_alpha()
+Snowman = pygame.image.load('resources\images\Snowman001.png').convert_alpha()
+Foreground = pygame.image.load('resources\images\Foreground.png').convert_alpha()
+char = pygame.image.load("resources\images\char.png").convert_alpha()
+enemy = pygame.image.load("resources\images\L1.png").convert_alpha()
+controlsScreen = pygame.image.load("resources\images\Controls.png").convert_alpha()
+image1 = pygame.image.load('resources\images\Pip1.png').convert_alpha()
+image2 = pygame.image.load('resources\images\Pip2.png').convert_alpha()
+image3 = pygame.image.load('resources\images\Pip3.png').convert_alpha()
+image4 = pygame.image.load('resources\images\Pip4.png').convert_alpha()
+image5 = pygame.image.load('resources\images\Pip5.png').convert_alpha()
+image6 = pygame.image.load('resources\images\Pip6.png').convert_alpha()
+image7 = pygame.image.load('resources\images\jumpingpip1.png').convert_alpha()
+image8 = pygame.image.load('resources\images\jumpingpip2.png').convert_alpha()
+image9 = pygame.image.load('resources\images\jumpingpip3.png').convert_alpha()
+image10 = pygame.image.load('resources\images\jumpingpip4.png').convert_alpha()
+image11 = pygame.image.load('resources\images\jumpingpip5.png').convert_alpha()
+image12 = pygame.image.load('resources\images\deadpip1.png').convert_alpha()
+image13 = pygame.image.load('resources\images\deadpip2.png').convert_alpha()
+image14 = pygame.image.load('resources\images\deadpip3.png').convert_alpha()
+image15 = pygame.image.load('resources\images\deadpip4.png').convert_alpha()
+image16 = pygame.image.load('resources\images\deadpip5.png').convert_alpha()
+menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png').convert_alpha(),
+                  pygame.image.load('menu\BGAnimation\MainMenu2.png').convert_alpha(),
+                  pygame.image.load('menu\BGAnimation\MainMenu3.png').convert_alpha(),
+                  pygame.image.load('menu\BGAnimation\MainMenu4.png').convert_alpha(),
+                  pygame.image.load('menu\BGAnimation\MainMenu5.png').convert_alpha(),
+                  pygame.image.load('startScene\MainMenu6.png').convert_alpha()]
 
-Door1 = pygame.image.load('menu\DoorAnimation\Door1.png')
-Door2 = pygame.image.load('menu\DoorAnimation\Door2.png')
-Door3 = pygame.image.load('menu\DoorAnimation\Door3.png')
-menuBG2 = pygame.image.load('menu\MenuMountain.png')
-JumpPenguinText = pygame.image.load('menu\JumpPenguinText.png')
-PlayText = pygame.image.load('menu\PlayText.png')
-ControlsText = pygame.image.load('menu\ControlsText.png')
-QuitText = pygame.image.load('menu\QuitText.png')
-FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png'),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png'),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png'),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin4.png'),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png'),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png')]
+Door1 = pygame.image.load('menu\DoorAnimation\Door1.png').convert_alpha()
+Door2 = pygame.image.load('menu\DoorAnimation\Door2.png').convert_alpha()
+Door3 = pygame.image.load('menu\DoorAnimation\Door3.png').convert_alpha()
+menuBG2 = pygame.image.load('menu\MenuMountain.png').convert_alpha()
+JumpPenguinText = pygame.image.load('menu\JumpPenguinText.png').convert_alpha()
+PlayText = pygame.image.load('menu\PlayText.png').convert_alpha()
+ControlsText = pygame.image.load('menu\ControlsText.png').convert_alpha()
+QuitText = pygame.image.load('menu\QuitText.png').convert_alpha()
+FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png').convert_alpha(),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png').convert_alpha(),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png').convert_alpha(),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin4.png').convert_alpha(),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png').convert_alpha(),
+                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png').convert_alpha()]
 #Pygame mixer
 mixer.init()
 mixer.music.load('resources\soundEffects\Furnace.mp3')
@@ -79,7 +79,7 @@ class Menu:
                 self.AntalBilleder1 += 1
                 win.blit(Door1, (0, 0))
             else:
-                clock.tick(60)
+                clock.tick(30)
                 win.blit(menuBG[5], (0, 0))
                 mixer.music.stop()
                 print(self.Tid)
@@ -93,18 +93,16 @@ class Menu:
                 if self.Tid >= 21:
                     win.blit(Door3, (0, 0))
                 if self.Tid >= 26 and self.Tid <= 27:
-                    win.blit(image1, (102, 165))
+                    win.blit(image1, (102, 160))
                 if self.Tid >= 28 and self.Tid <= 29:
-                    win.blit(image1, (102, 155))
+                    win.blit(image1, (102, 150))
                 if self.Tid >= 30 and self.Tid <= 31:
-                    win.blit(image1, (102, 170))
+                    win.blit(image1, (102, 167))
                 if self.Tid >= 32 and self.Tid <= 33:
-                    win.blit(image1, (102, 180))
+                    win.blit(image1, (102, 185))
                 if self.Tid >= 34 and self.Tid <= 35:
-                    win.blit(image1, (102, 190))
+                    win.blit(image1, (102, 192))
                 if self.Tid >= 36 and self.Tid <= 37:
-                    win.blit(image1, (102, 200))
-                if self.Tid >= 38 and self.Tid <= 39:
                     win.blit(image1, (102, 210))
 
 
@@ -271,6 +269,7 @@ class Enemy:
         self.x = 1000
         self.y = 395
 
+
 def RedrawGameWindow():
     if StopDrawing == False:
         if startspil == True:
@@ -288,7 +287,6 @@ def RedrawGameWindow():
             if PlayStart == True: #Resten af startscenen placeres herinde og laver en cutscene
                 Menu.MountainBG()
                 Menu.animation()
-                Menu.FlossingPingvin()
             elif ControlsStart == True:
                 Menu.MountainBG()
                 Menu.animation()
