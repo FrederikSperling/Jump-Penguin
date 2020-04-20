@@ -32,12 +32,15 @@ image13 = pygame.image.load('resources\images\deadpip2.png').convert_alpha()
 image14 = pygame.image.load('resources\images\deadpip3.png').convert_alpha()
 image15 = pygame.image.load('resources\images\deadpip4.png').convert_alpha()
 image16 = pygame.image.load('resources\images\deadpip5.png').convert_alpha()
+image17 = pygame.image.load('resources\images\Animationpip1.png').convert_alpha()
 menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png').convert_alpha(),
                   pygame.image.load('menu\BGAnimation\MainMenu2.png').convert_alpha(),
                   pygame.image.load('menu\BGAnimation\MainMenu3.png').convert_alpha(),
                   pygame.image.load('menu\BGAnimation\MainMenu4.png').convert_alpha(),
                   pygame.image.load('menu\BGAnimation\MainMenu5.png').convert_alpha(),
                   pygame.image.load('startScene\MainMenu6.png').convert_alpha()]
+WalkingPip = [image12, image13, image14]
+
 
 Door1 = pygame.image.load('menu\DoorAnimation\Door1.png').convert_alpha()
 Door2 = pygame.image.load('menu\DoorAnimation\Door2.png').convert_alpha()
@@ -58,18 +61,21 @@ mixer.init()
 mixer.music.load('resources\soundEffects\Furnace.mp3')
 
 class Menu:
-    def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid):
+    def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid, xPosAnimation, yPosAnimation, WalkingAnimation):
         self.ImageNRAnimation = ImageNRAnimation
         self.ImageNRFlossPingvin = ImageNRFlossPingvin
         self.repeats = Repeats
         self.AntalBilleder1 = AntalBilleder1
         self.Tid = SceneTid
+        self.xPos = xPosAnimation
+        self.yPos = yPosAnimation
+        self.WalkingAnimation = WalkingAnimation
 
     def animation(self):
 
-        if PlayStart == True: #Animation for baggrunden i menuen og startscenen
-
-            if self.AntalBilleder1 < 30:
+        if PlayStart == True: #Animation for baggrunden i menuen og startscenen. Ikke færdig endnu men in progress
+            global startspil
+            if self.AntalBilleder1 < 5:
                 clock.tick(5)
                 mixer.music.play()
                 if self.ImageNRAnimation > 4: #Resetter listen af billeder
@@ -79,31 +85,46 @@ class Menu:
                 self.AntalBilleder1 += 1
                 win.blit(Door1, (0, 0))
             else:
-                clock.tick(30)
+                clock.tick(20)
                 win.blit(menuBG[5], (0, 0))
                 mixer.music.stop()
                 print(self.Tid)
                 self.Tid += 1
-                if self.Tid <= 9:
+                if self.Tid <= 15:
                     win.blit(Door1, (0, 0))
-                if self.Tid >= 10 and self.Tid <= 20:
+
+                elif self.Tid >= 16 and self.Tid <= 30:
                     win.blit(Door2, (0, 0))
-                if self.Tid >= 10 and self.Tid <= 25:
-                    win.blit(image1, (102, 170))
-                if self.Tid >= 21:
+
+                elif self.Tid >= 25 and self.Tid <= 35:
                     win.blit(Door3, (0, 0))
-                if self.Tid >= 26 and self.Tid <= 27:
-                    win.blit(image1, (102, 160))
-                if self.Tid >= 28 and self.Tid <= 29:
-                    win.blit(image1, (102, 150))
-                if self.Tid >= 30 and self.Tid <= 31:
-                    win.blit(image1, (102, 167))
-                if self.Tid >= 32 and self.Tid <= 33:
-                    win.blit(image1, (102, 185))
-                if self.Tid >= 34 and self.Tid <= 35:
-                    win.blit(image1, (102, 192))
-                if self.Tid >= 36 and self.Tid <= 37:
-                    win.blit(image1, (102, 210))
+
+                elif self.Tid >= 35 and self.Tid <= 45:
+                    win.blit(Door2, (0, 0))
+
+                elif self.Tid >= 45:
+                    win.blit(Door1, (0, 0))
+
+                if self.Tid >= 16 and self.Tid <= 60:
+                    win.blit(image1, (self.xPos, self.yPos))
+
+                elif self.Tid >= 60 and self.Tid <= 65:
+                    win.blit(image17, (self.xPos, self.yPos))
+                    self.yPos -= 5
+                    print(self.xPos, self.yPos)
+
+                elif self.Tid >= 66 and self.Tid <= 75:
+                    win.blit(image17, (self.xPos, self.yPos))
+                    self.yPos += 10
+                    print(self.xPos, self.yPos)
+
+                #elif self.Tid >= 76:
+                #    if self.WalkingAnimation > 2:  # Resetter listen af billeder
+                #        self.WalkingAnimation = 0
+                #    win.blit(WalkingPip[self.WalkingAnimation], (self.xPos, self.yPos))
+                #    self.WalkingAnimation += 1  # Skifter vores baggrund i menuen så den bliver animeret
+                elif self.Tid > 100:
+                    startspil = True
 
 
         else:
@@ -288,6 +309,7 @@ def RedrawGameWindow():
                 Menu.MountainBG()
                 Menu.animation()
             elif ControlsStart == True:
+                clock.tick(5)
                 Menu.MountainBG()
                 Menu.animation()
                 Menu.FlossingPingvin()
@@ -353,7 +375,7 @@ man = Player1(50, 375, 50, 50)
 obstacle = Enemy(1000, 395, 50, 50)
 movBGs = MovBGs(3, 10, 10)
 pointSystem = PointSystem(0, 400)
-Menu = Menu(3, 0, 0, 0, 0)
+Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0)
 buttons = Buttons()
 
 
@@ -385,5 +407,3 @@ while run:
 
     RedrawGameWindow()
     pygame.display.update()
-
-pygame.QUIT
