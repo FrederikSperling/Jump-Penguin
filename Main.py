@@ -98,13 +98,13 @@ class Menu:
                 elif self.Tid >= 16 and self.Tid <= 25:
                     win.blit(Door2, (0, 0))
 
-                elif self.Tid >= 22 and self.Tid <= 30:
-                    win.blit(Door3, (0, 0))
+                #elif self.Tid >= 22 and self.Tid <= 30:
+                    #win.blit(Door3, (0, 0))
 
-                elif self.Tid >= 30 and self.Tid <= 37:
-                    win.blit(Door2, (0, 0))
+                #elif self.Tid >= 30 and self.Tid <= 37:
+                    #win.blit(Door2, (0, 0))
 
-                elif self.Tid >= 37:
+                elif self.Tid >= 25:
                     win.blit(Door1, (0, 0))
 
                 if self.Tid >= 16 and self.Tid <= 60:
@@ -127,7 +127,7 @@ class Menu:
                     win.blit(WalkingPip[self.WalkingAnimation], (self.xPos, self.yPos))
                     self.WalkingAnimation += 1  # Skifter vores baggrund i menuen så den bliver animeret
                     if self.xPos <= 700:
-                        self.xPos += 7.5
+                        self.xPos += 6
 
                 elif self.Tid == 200:
                     startspil = True
