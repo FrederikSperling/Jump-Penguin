@@ -9,36 +9,38 @@ clock = pygame.time.Clock()
 
 #Billeder
 playagain = pygame.image.load("resources\images\PlayAgain.png").convert_alpha()
-Trees = pygame.image.load('resources\images\Trees1.png').convert_alpha()
+Trees = pygame.image.load('resources\images\Trees1.gif').convert_alpha()
 mBG = pygame.image.load('resources\images\Mountain.png').convert_alpha()
 Snowman = pygame.image.load('resources\images\Snowman001.png').convert_alpha()
-Foreground = pygame.image.load('resources\images\Foreground.png').convert_alpha()
+Foreground = pygame.image.load('resources\images\Foreground.gif').convert_alpha()
 char = pygame.image.load("resources\images\char.png").convert_alpha()
 enemy = pygame.image.load("resources\images\L1.png").convert_alpha()
 controlsScreen = pygame.image.load("resources\images\Controls.png").convert_alpha()
-image1 = pygame.image.load('resources\images\Pip1.png').convert_alpha()
-image2 = pygame.image.load('resources\images\Pip2.png').convert_alpha()
-image3 = pygame.image.load('resources\images\Pip3.png').convert_alpha()
-image4 = pygame.image.load('resources\images\Pip4.png').convert_alpha()
-image5 = pygame.image.load('resources\images\Pip5.png').convert_alpha()
-image6 = pygame.image.load('resources\images\Pip6.png').convert_alpha()
-image7 = pygame.image.load('resources\images\jumpingpip1.png').convert_alpha()
-image8 = pygame.image.load('resources\images\jumpingpip2.png').convert_alpha()
-image9 = pygame.image.load('resources\images\jumpingpip3.png').convert_alpha()
-image10 = pygame.image.load('resources\images\jumpingpip4.png').convert_alpha()
-image11 = pygame.image.load('resources\images\jumpingpip5.png').convert_alpha()
-image12 = pygame.image.load('resources\images\deadpip1.png').convert_alpha()
-image13 = pygame.image.load('resources\images\deadpip2.png').convert_alpha()
-image14 = pygame.image.load('resources\images\deadpip3.png').convert_alpha()
-image15 = pygame.image.load('resources\images\deadpip4.png').convert_alpha()
-image16 = pygame.image.load('resources\images\deadpip5.png').convert_alpha()
-image17 = pygame.image.load('resources\images\Animationpip1.png').convert_alpha()
-menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png').convert_alpha(),
-                  pygame.image.load('menu\BGAnimation\MainMenu2.png').convert_alpha(),
-                  pygame.image.load('menu\BGAnimation\MainMenu3.png').convert_alpha(),
-                  pygame.image.load('menu\BGAnimation\MainMenu4.png').convert_alpha(),
-                  pygame.image.load('menu\BGAnimation\MainMenu5.png').convert_alpha(),
-                  pygame.image.load('startScene\MainMenu6.png').convert_alpha()]
+image1 = pygame.image.load('resources\images\Rightpip1.png')
+image2 = pygame.image.load('resources\images\Rightpip2.png')
+image3 = pygame.image.load('resources\images\Rightpip3.png')
+image4 = pygame.image.load('resources\images\Rightpip4.png')
+image5 = pygame.image.load('resources\images\Rightpip5.png')
+image6 = pygame.image.load('resources\images\Rightpip6.png')
+image7 = pygame.image.load('resources\images\Jumpingpip1.png')
+image8 = pygame.image.load('resources\images\Jumpingpip2.png')
+image9 = pygame.image.load('resources\images\Jumpingpip3.png')
+image10 = pygame.image.load('resources\images\Jumpingpip4.png')
+image11 = pygame.image.load('resources\images\Jumpingpip5.png')
+image12 = pygame.image.load('resources\images\deadpip1.png')
+image13 = pygame.image.load('resources\images\deadpip2.png')
+image14 = pygame.image.load('resources\images\deadpip3.png')
+image15 = pygame.image.load('resources\images\deadpip4.png')
+image16 = pygame.image.load('resources\images\deadpip5.png')
+image17 = pygame.image.load('resources\images\Animationpip1.png')
+ExclamationMark = pygame.image.load('resources\images\ExclamationMark.png')
+QuestionMark = pygame.image.load('resources\images\QuestionMark.png')
+menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
+          pygame.image.load('menu\BGAnimation\MainMenu2.png'),
+          pygame.image.load('menu\BGAnimation\MainMenu3.png'),
+          pygame.image.load('menu\BGAnimation\MainMenu4.png'),
+          pygame.image.load('menu\BGAnimation\MainMenu5.png'),
+          pygame.image.load('startScene\MainMenu6.png')]
 WalkingPip = [image12, image13, image14]
 
 
@@ -75,7 +77,7 @@ class Menu:
 
         if PlayStart == True: #Animation for baggrunden i menuen og startscenen. Ikke færdig endnu men in progress
             global startspil
-            if self.AntalBilleder1 < 5:
+            if self.AntalBilleder1 < 30:
                 clock.tick(5)
                 mixer.music.play()
                 if self.ImageNRAnimation > 4: #Resetter listen af billeder
@@ -93,38 +95,45 @@ class Menu:
                 if self.Tid <= 15:
                     win.blit(Door1, (0, 0))
 
-                elif self.Tid >= 16 and self.Tid <= 30:
+                elif self.Tid >= 16 and self.Tid <= 25:
                     win.blit(Door2, (0, 0))
 
-                elif self.Tid >= 25 and self.Tid <= 35:
-                    win.blit(Door3, (0, 0))
+                #elif self.Tid >= 22 and self.Tid <= 30:
+                    #win.blit(Door3, (0, 0))
 
-                elif self.Tid >= 35 and self.Tid <= 45:
-                    win.blit(Door2, (0, 0))
+                #elif self.Tid >= 30 and self.Tid <= 37:
+                    #win.blit(Door2, (0, 0))
 
-                elif self.Tid >= 45:
+                elif self.Tid >= 25:
                     win.blit(Door1, (0, 0))
 
                 if self.Tid >= 16 and self.Tid <= 60:
                     win.blit(image1, (self.xPos, self.yPos))
 
-                elif self.Tid >= 60 and self.Tid <= 65:
+                elif self.Tid >= 60 and self.Tid <= 63:
                     win.blit(image17, (self.xPos, self.yPos))
                     self.yPos -= 5
                     print(self.xPos, self.yPos)
 
-                elif self.Tid >= 66 and self.Tid <= 75:
+                elif self.Tid >= 63 and self.Tid <= 70:
                     win.blit(image17, (self.xPos, self.yPos))
                     self.yPos += 10
                     print(self.xPos, self.yPos)
 
-                #elif self.Tid >= 76:
-                #    if self.WalkingAnimation > 2:  # Resetter listen af billeder
-                #        self.WalkingAnimation = 0
-                #    win.blit(WalkingPip[self.WalkingAnimation], (self.xPos, self.yPos))
-                #    self.WalkingAnimation += 1  # Skifter vores baggrund i menuen så den bliver animeret
-                elif self.Tid > 100:
+                elif self.Tid >= 70 and self.Tid <= 170:
+                    win.blit(QuestionMark, (0, 0))
+                    if self.WalkingAnimation > 2:  # Resetter listen af billeder
+                        self.WalkingAnimation = 0
+                    win.blit(WalkingPip[self.WalkingAnimation], (self.xPos, self.yPos))
+                    self.WalkingAnimation += 1  # Skifter vores baggrund i menuen så den bliver animeret
+                    if self.xPos <= 700:
+                        self.xPos += 6
+
+                elif self.Tid == 200:
                     startspil = True
+
+
+
 
 
         else:
@@ -178,25 +187,25 @@ class MovBGs:
 
     def movingTrees(self):
         rel_x_Trees = self.xtree % Trees.get_rect().width
-        win.blit(Trees, (rel_x_Trees - Trees.get_rect().width, 60))
+        win.blit(Trees, (rel_x_Trees - Trees.get_rect().width, 0))
         if rel_x_Trees < self.W:
-            win.blit(Trees, (rel_x_Trees, 60))
+            win.blit(Trees, (rel_x_Trees, 0))
         self.xtree -= self.treeSpeed
         self.treeSpeed += 0.01
 
     def movingSnowman(self):
         rel_x_Snowman = self.xsnowman % Snowman.get_rect().width
-        win.blit(Snowman, (rel_x_Snowman - Snowman.get_rect().width, 220))
+        win.blit(Snowman, (rel_x_Snowman - Snowman.get_rect().width, 170))
         if rel_x_Snowman < self.W:
-            win.blit(Snowman, (rel_x_Snowman, 220))
+            win.blit(Snowman, (rel_x_Snowman, 170))
         self.xsnowman -= self.snowmanSpeed
         self.snowmanSpeed += 0.01
 
     def movingForeground(self):
         rel_x_foreground = self.xforeground % Foreground.get_rect().width
-        win.blit(Foreground, (rel_x_foreground - Foreground.get_rect().width, 380))
+        win.blit(Foreground, (rel_x_foreground - Foreground.get_rect().width, 0))
         if rel_x_foreground < self.W:
-            win.blit(Foreground, (rel_x_foreground, 380))
+            win.blit(Foreground, (rel_x_foreground, 0))
         self.xforeground -= self.foregroundSpeed
         self.foregroundSpeed += 0.01
 
