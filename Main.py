@@ -11,7 +11,6 @@ clock = pygame.time.Clock()
 playagain = pygame.image.load("resources\images\PlayAgain.png").convert_alpha()
 Trees = pygame.image.load('resources\images\Trees1.png').convert_alpha()
 mBG = pygame.image.load('resources\images\Mountain.png').convert_alpha()
-Snowman = pygame.image.load('resources\images\Snowman001.png').convert_alpha()
 Foreground = pygame.image.load('resources\images\Foreground.gif').convert_alpha()
 char = pygame.image.load("resources\images\char.png").convert_alpha()
 enemy = pygame.image.load("resources\images\L1.png").convert_alpha()
@@ -44,7 +43,6 @@ menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
           pygame.image.load('startScene\MainMenu6.png')]
 WalkingPip = [image12, image13, image14]
 PipBehind = pygame.image.load('resources\images\Pipbehind.png')
-
 Door1 = pygame.image.load('menu\DoorAnimation\Door1.png').convert_alpha()
 Door2 = pygame.image.load('menu\DoorAnimation\Door2.png').convert_alpha()
 Door3 = pygame.image.load('menu\DoorAnimation\Door3.png').convert_alpha()
@@ -53,6 +51,11 @@ JumpPenguinText = pygame.image.load('menu\JumpPenguinText.png').convert_alpha()
 PlayText = pygame.image.load('menu\PlayText.png').convert_alpha()
 ControlsText = pygame.image.load('menu\ControlsText.png').convert_alpha()
 QuitText = pygame.image.load('menu\QuitText.png').convert_alpha()
+Leftpip = pygame.image.load('resources\images\Leftpip1.png')
+PolarBear = pygame.image.load('resources\images\polarbear1.png')
+PolarBear2 = pygame.image.load('resources\images\polarbear2.png')
+PolarBear3 = pygame.image.load('resources\images\polarbear3.png')
+PolarbearAni = [PolarBear, PolarBear2]
 FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png').convert_alpha(),
@@ -68,7 +71,7 @@ DoorSoundEffect1 = False
 DoorSoundEffect2 = False
 
 class Menu:
-    def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid, xPosAnimation, yPosAnimation, WalkingAnimation):
+    def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid, xPosAnimation, yPosAnimation, WalkingAnimation, xPosAnimation2, yPosAnimation2, WalkingAnimation2):
         self.ImageNRAnimation = ImageNRAnimation
         self.ImageNRFlossPingvin = ImageNRFlossPingvin
         self.repeats = Repeats
@@ -76,7 +79,10 @@ class Menu:
         self.Tid = SceneTid
         self.xPos = xPosAnimation
         self.yPos = yPosAnimation
+        self.xPos2 = xPosAnimation2
+        self.yPos2 = yPosAnimation2
         self.WalkingAnimation = WalkingAnimation
+        self.WalkingAnimation2 = WalkingAnimation2
 
     def animation(self):
 
@@ -121,26 +127,58 @@ class Menu:
                     self.yPos -= 5
                     print(self.xPos, self.yPos)
 
-                elif self.Tid >= 63 and self.Tid <= 70:
+                elif self.Tid >= 63 and self.Tid <= 68:
                     win.blit(image17, (self.xPos, self.yPos))
-                    self.yPos += 10
+                    self.yPos += 15
                     print(self.xPos, self.yPos)
-                elif self.Tid >= 70 and self.Tid <= 73:
+                elif self.Tid >= 68 and self.Tid <= 73:
                     win.blit(image18, (self.xPos, self.yPos))
 
                 elif self.Tid >= 73 and self.Tid <= 170:
-                    if self.WalkingAnimation > 2:  # Resetter listen af billeder
+                    if self.WalkingAnimation > 2:
                         self.WalkingAnimation = 0
                     win.blit(WalkingPip[self.WalkingAnimation], (self.xPos, self.yPos))
-                    self.WalkingAnimation += 1  # Skifter vores baggrund i menuen så den bliver animeret
+                    self.WalkingAnimation += 1
                     if self.xPos <= 700:
                         self.xPos += 6
 
                 elif self.Tid >= 170 and self.Tid <= 220:
                     win.blit(PipBehind, (self.xPos, self.yPos))
 
-                elif self.Tid >= 220 and self.Tid <= 270:
+                elif self.Tid >= 220 and self.Tid <= 250:
+                    win.blit(Leftpip, (self.xPos, self.yPos))
+
+                elif self.Tid >= 250 and self.Tid <= 380:
+                    if self.WalkingAnimation > 2:
+                        self.WalkingAnimation = 0
+                    win.blit(WalkingPip[self.WalkingAnimation], (self.xPos, self.yPos))
+                    self.WalkingAnimation += 1
+                    self.xPos += 12
+
+                if self.Tid >= 190 and self.Tid <= 220:
                     win.blit(QuestionMark, (706, 210))
+                    if self.Tid >= 190 and self.Tid <= 200:
+                        if self.WalkingAnimation2 > 1:
+                            self.WalkingAnimation2 = 0
+                        win.blit(PolarbearAni[self.WalkingAnimation2], (self.xPos2, self.yPos2))
+                        self.WalkingAnimation2 += 1
+                        self.xPos2 += 8
+
+                if self.Tid >= 200 and self.Tid <= 250:
+                    win.blit(PolarBear3, (self.xPos2, self.yPos2))
+
+                elif self.Tid >= 230 and self.Tid <= 380:
+                    if self.WalkingAnimation2 > 1:
+                        self.WalkingAnimation2 = 0
+                    win.blit(PolarbearAni[self.WalkingAnimation2], (self.xPos2, self.yPos2))
+                    self.WalkingAnimation2 += 1
+                    self.xPos2 += 15
+
+                if self.Tid >= 230 and self.Tid <= 250:
+                    win.blit(ExclamationMark, (714, 210))
+
+                if self.Tid == 380:
+                    startspil = True
         else:
             if self.ImageNRAnimation > 4:
                 self.ImageNRAnimation = 0
@@ -172,12 +210,11 @@ class Menu:
         self.ImageNRFlossPingvin += 1 #Skifter vores baggrund i menuen så den bliver animeret
 
 class MovBGs:
-    def __init__(self, treespeed, snowmanspeed, foregroundspeed):
+    def __init__(self, treespeed, foregroundspeed):
         self.W = 1000
         self.treeSpeed = treespeed
         self.xtree = 0
-        self.snowmanSpeed = snowmanspeed
-        self.xsnowman = 0
+
         self.foregroundSpeed = foregroundspeed
         self.xforeground = 0
 
@@ -191,14 +228,6 @@ class MovBGs:
             win.blit(Trees, (rel_x_Trees, 0))
         self.xtree -= self.treeSpeed
         self.treeSpeed += 0.01
-
-    def movingSnowman(self):
-        rel_x_Snowman = self.xsnowman % Snowman.get_rect().width
-        win.blit(Snowman, (rel_x_Snowman - Snowman.get_rect().width, 170))
-        if rel_x_Snowman < self.W:
-            win.blit(Snowman, (rel_x_Snowman, 170))
-        self.xsnowman -= self.snowmanSpeed
-        self.snowmanSpeed += 0.01
 
     def movingForeground(self):
         rel_x_foreground = self.xforeground % Foreground.get_rect().width
@@ -328,7 +357,6 @@ def RedrawGameWindow():
             movBGs.mountainBG()
             movBGs.movingTrees()
             movBGs.movingForeground()
-            movBGs.movingSnowman()
             pointSystem.PointSystem_On_Screen()
             man.sprite(win)
             obstacle.draw(win)
@@ -403,9 +431,9 @@ class Buttons:
 
 man = Player1(50, 375, 50, 50)
 obstacle = Enemy(1000, 395, 50, 50)
-movBGs = MovBGs(3, 10, 10)
+movBGs = MovBGs(3, 10)
 pointSystem = PointSystem(0, 400)
-Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0)
+Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 
 
