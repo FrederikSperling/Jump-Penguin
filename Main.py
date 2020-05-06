@@ -9,7 +9,7 @@ clock = pygame.time.Clock()
 
 #Billeder
 playagain = pygame.image.load("resources\images\PlayAgain.png").convert_alpha()
-Trees = pygame.image.load('resources\images\Trees1.gif').convert_alpha()
+Trees = pygame.image.load('resources\images\Trees1.png').convert_alpha()
 mBG = pygame.image.load('resources\images\Mountain.png').convert_alpha()
 Snowman = pygame.image.load('resources\images\Snowman001.png').convert_alpha()
 Foreground = pygame.image.load('resources\images\Foreground.gif').convert_alpha()
@@ -33,6 +33,7 @@ image14 = pygame.image.load('resources\images\deadpip3.png')
 image15 = pygame.image.load('resources\images\deadpip4.png')
 image16 = pygame.image.load('resources\images\deadpip5.png')
 image17 = pygame.image.load('resources\images\Animationpip1.png')
+image18 = pygame.image.load('resources\images\PipDoorAni1.png')
 ExclamationMark = pygame.image.load('resources\images\ExclamationMark.png')
 QuestionMark = pygame.image.load('resources\images\QuestionMark.png')
 menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
@@ -42,7 +43,7 @@ menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
           pygame.image.load('menu\BGAnimation\MainMenu5.png'),
           pygame.image.load('startScene\MainMenu6.png')]
 WalkingPip = [image12, image13, image14]
-
+PipBehind = pygame.image.load('resources\images\Pipbehind.png')
 
 Door1 = pygame.image.load('menu\DoorAnimation\Door1.png').convert_alpha()
 Door2 = pygame.image.load('menu\DoorAnimation\Door2.png').convert_alpha()
@@ -59,8 +60,12 @@ FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingv
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png').convert_alpha()]
 #Pygame mixer
-mixer.init()
-mixer.music.load('resources\soundEffects\Furnace.mp3')
+pygame.mixer.init()
+
+
+FurnaceSoundEffect = False
+DoorSoundEffect1 = False
+DoorSoundEffect2 = False
 
 class Menu:
     def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid, xPosAnimation, yPosAnimation, WalkingAnimation):
@@ -77,9 +82,12 @@ class Menu:
 
         if PlayStart == True: #Animation for baggrunden i menuen og startscenen. Ikke færdig endnu men in progress
             global startspil
+            global FurnaceSoundEffect
+            global DoorSoundEffect1
+            global DoorSoundEffect2
             if self.AntalBilleder1 < 30:
+                FurnaceSoundEffect = True
                 clock.tick(5)
-                mixer.music.play()
                 if self.ImageNRAnimation > 4: #Resetter listen af billeder
                     self.ImageNRAnimation = 0
                 win.blit(menuBG[self.ImageNRAnimation], (0, 0))
@@ -87,6 +95,7 @@ class Menu:
                 self.AntalBilleder1 += 1
                 win.blit(Door1, (0, 0))
             else:
+                FurnaceSoundEffect = False
                 clock.tick(20)
                 win.blit(menuBG[5], (0, 0))
                 mixer.music.stop()
@@ -95,19 +104,16 @@ class Menu:
                 if self.Tid <= 15:
                     win.blit(Door1, (0, 0))
 
-                elif self.Tid >= 16 and self.Tid <= 25:
+                elif self.Tid >= 16 and self.Tid <= 30:
                     win.blit(Door2, (0, 0))
 
-                #elif self.Tid >= 22 and self.Tid <= 30:
-                    #win.blit(Door3, (0, 0))
-
-                #elif self.Tid >= 30 and self.Tid <= 37:
-                    #win.blit(Door2, (0, 0))
-
-                elif self.Tid >= 25:
+                elif self.Tid >= 31:
                     win.blit(Door1, (0, 0))
 
-                if self.Tid >= 16 and self.Tid <= 60:
+                if self.Tid >= 16 and self.Tid <= 30:
+                    win.blit(image18, (self.xPos, self.yPos))
+
+                elif self.Tid >= 30 and self.Tid <= 60:
                     win.blit(image1, (self.xPos, self.yPos))
 
                 elif self.Tid >= 60 and self.Tid <= 63:
@@ -119,9 +125,10 @@ class Menu:
                     win.blit(image17, (self.xPos, self.yPos))
                     self.yPos += 10
                     print(self.xPos, self.yPos)
+                elif self.Tid >= 70 and self.Tid <= 73:
+                    win.blit(image18, (self.xPos, self.yPos))
 
-                elif self.Tid >= 70 and self.Tid <= 170:
-                    win.blit(QuestionMark, (0, 0))
+                elif self.Tid >= 73 and self.Tid <= 170:
                     if self.WalkingAnimation > 2:  # Resetter listen af billeder
                         self.WalkingAnimation = 0
                     win.blit(WalkingPip[self.WalkingAnimation], (self.xPos, self.yPos))
@@ -129,13 +136,11 @@ class Menu:
                     if self.xPos <= 700:
                         self.xPos += 6
 
-                elif self.Tid == 200:
-                    startspil = True
+                elif self.Tid >= 170 and self.Tid <= 220:
+                    win.blit(PipBehind, (self.xPos, self.yPos))
 
-
-
-
-
+                elif self.Tid >= 220 and self.Tid <= 270:
+                    win.blit(QuestionMark, (706, 210))
         else:
             if self.ImageNRAnimation > 4:
                 self.ImageNRAnimation = 0
@@ -165,12 +170,6 @@ class Menu:
             self.ImageNRFlossPingvin = 0
         win.blit(FlossingPingvinBilleder[self.ImageNRFlossPingvin], (750, 250))
         self.ImageNRFlossPingvin += 1 #Skifter vores baggrund i menuen så den bliver animeret
-
-
-
-
-
-
 
 class MovBGs:
     def __init__(self, treespeed, snowmanspeed, foregroundspeed):
@@ -299,6 +298,28 @@ class Enemy:
         self.x = 1000
         self.y = 395
 
+def PlayMusic():
+    if FurnaceSoundEffect == True:
+        global FurnaceSoundEffectRepeat
+        if FurnaceSoundEffectRepeat == 0:
+            pygame.mixer.music.load('resources\soundEffects\Furnace.mp3')
+            pygame.mixer.music.play(1)
+            FurnaceSoundEffectRepeat += 1
+    if DoorSoundEffect1 == True:
+        global DoorSoundEffectRepeat
+        if DoorSoundEffectRepeat == 0:
+            pygame.mixer.music.load('resources\soundEffects\DoorSoundEffect1.mp3')
+            pygame.mixer.music.play(1)
+            DoorSoundEffectRepeat += 1
+    if DoorSoundEffect2 == True:
+        global DoorSoundEffectRepeat2
+        if DoorSoundEffectRepeat2 == 0:
+            pygame.mixer.music.load('resources\soundEffects\DoorSoundEffect2.mp3')
+            pygame.mixer.music.play(1)
+            DoorSoundEffectRepeat2 += 1
+FurnaceSoundEffectRepeat = 0
+DoorSoundEffectRepeat = 0
+DoorSoundEffectRepeat2 = 0
 
 def RedrawGameWindow():
     if StopDrawing == False:
@@ -415,4 +436,5 @@ while run:
             buttons.QuitButton()
 
     RedrawGameWindow()
+    PlayMusic()
     pygame.display.update()
