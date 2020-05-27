@@ -8,7 +8,7 @@ pygame.init()
 clock = pygame.time.Clock()
 
 #Billeder
-playagain = pygame.image.load("resources\images\PlayAgain.png").convert_alpha()
+PlayAgain = pygame.image.load("resources\images\Play again.png").convert_alpha()
 Trees = pygame.image.load('resources\images\Trees1.png').convert_alpha()
 mBG = pygame.image.load('resources\images\Mountain.png').convert_alpha()
 Foreground = pygame.image.load('resources\images\Foreground.gif').convert_alpha()
