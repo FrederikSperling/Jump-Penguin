@@ -273,7 +273,7 @@ class Player1:
         self.y = 375
         GameOver = pygame.image.load('resources\images\Gameover.png')
         win.blit(GameOver, (0, 25))
-        win.blit(playagain, (0, 25))
+        win.blit(PlayAgain, (0, 25))
         pygame.display.update()
         RunMouseButton = True
         pause = True
@@ -431,7 +431,7 @@ man = Player1(50, 375, 50, 50)
 obstacle = Enemy(1000, 395, 50, 50)
 movBGs = MovBGs(5, 5)
 pointSystem = PointSystem(0, 350)
-Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 350, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 
 
