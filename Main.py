@@ -253,24 +253,30 @@ class PointSystem:
 
 
 class Player1:
-    def __init__(self, x, y, heigth, width):
+    def __init__(self, x, y, height, width):
             self.x = x
             self.y = y
             self.width = width
-            self.h = heigth
+            self.h = height
             self.Jump = False
             self.JumpCount = 7
-            self.hitbox = (self.x + 25, self.y + 29, 50, 56)
+            self.hitbox = (self.x + 33, self.y + 13, 40, 73)
             self.neg = 1
+            self.WalkingAnimation = 0
 
 
     def sprite(self,win):
-        win.blit(char, (self.x, self.y))
-        self.hitbox = (self.x + 25, self.y + 29, 50, 56)
+        if self.WalkingAnimation > 2:
+            self.WalkingAnimation = 0
+        win.blit(WalkingPip[self.WalkingAnimation], (self.x, self.y))
+        self.WalkingAnimation += 1
+        self.hitbox = (self.x + 33, self.y + 13, 40, 73)
+        if self.Jump == True:
+            win.blit(image12, (self.x, self.y))
 
     def hit(self):
         self.x = 60
-        self.y = 375
+        self.y = 269
         GameOver = pygame.image.load('resources\images\Gameover.png')
         win.blit(GameOver, (0, 25))
         win.blit(PlayAgain, (0, 25))
@@ -307,25 +313,35 @@ class Player1:
 
 
 class Enemy:
-    def __init__(self, x, y, width, heigth):
+    def __init__(self, x, y, width, heigth, WalkingAnimation):
         self.x = x
         self.y = y
         self.width = width
         self.heigth = heigth
-        self.vel = 10
+        self.vel = 5
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
+        self.WalkingAnimation = WalkingAnimation
     def draw(self,win):
         win.blit(enemy, (self.x, self.y))
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
 
     def move(self):
+        self.vel += 0.01
         self.x -= self.vel
         if self.x < 0 - self.width:
             self.x = 1000
-            self.vel += 1
+
+
+
     def hit(self):
         self.x = 1000
         self.y = 395
+
+    def animation(self):
+        if self.WalkingAnimation > 1:
+            self.WalkingAnimation = 0
+        win.blit(PolarbearAni[self.WalkingAnimation], (20, 269))
+        self.WalkingAnimation += 1
 
 def PlayMusic():
     if FurnaceSoundEffect == True:
@@ -358,10 +374,11 @@ def RedrawGameWindow():
             movBGs.movingTrees()
             movBGs.movingForeground()
             pointSystem.PointSystem_On_Screen()
-            man.sprite(win)
             obstacle.draw(win)
             obstacle.move()
             Player1.Jumping(0)
+            man.sprite(win)
+            obstacle.animation()
         else:
             if PlayStart == True: #Resten af startscenen placeres herinde og laver en cutscene
                 Menu.MountainBG()
@@ -427,11 +444,11 @@ class Buttons:
                 RunMouseButton2 = False
                 QuitStart = True
 
-man = Player1(50, 375, 50, 50)
-obstacle = Enemy(1000, 395, 50, 50)
+man = Player1(250, 269, 50, 50)
+obstacle = Enemy(1000, 395, 50, 50, 0)
 movBGs = MovBGs(5, 5)
 pointSystem = PointSystem(0, 350)
-Menu = Menu(3, 0, 0, 0, 350, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 
 
