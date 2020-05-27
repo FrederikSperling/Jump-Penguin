@@ -222,6 +222,7 @@ class MovBGs:
         win.blit(mBG, (0, 0))
 
     def movingTrees(self):
+        global pause
         rel_x_Trees = self.xtree % Trees.get_rect().width
         win.blit(Trees, (rel_x_Trees - Trees.get_rect().width, 0))
         if rel_x_Trees < self.W:
@@ -244,7 +245,7 @@ class PointSystem:
         self.xPos = xPos
 
     def PointSystem_On_Screen(self):
-        font = pygame.font.SysFont("Comic Sans MS", 30)
+        font = pygame.font.SysFont("Comic Sans MS", 60)
         text = font.render("Score: " + str(self.Score), True, (0, 0, 0))
         if run == True:
             win.blit(text, [self.xPos, 50])
@@ -270,10 +271,9 @@ class Player1:
     def hit(self):
         self.x = 60
         self.y = 375
-        font1 = pygame.font.SysFont("comicsans",100)
-        text = font1.render("game over",1, (255,0,0))
-        win.blit(text, (325, 120))
-        win.blit(playagain, (400, 250))
+        GameOver = pygame.image.load('resources\images\Gameover.png')
+        win.blit(GameOver, (0, 25))
+        win.blit(playagain, (0, 25))
         pygame.display.update()
         RunMouseButton = True
         pause = True
@@ -284,7 +284,7 @@ class Player1:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mx, my = pygame.mouse.get_pos()
                     if RunMouseButton == True:
-                        if 400 + 200 > mx > 400 and 250 + 66 > my > 250:  # Her tjekkes om musen er inde i "Play again" hitboxen
+                        if 293 + 412 > mx > 293 and 308 + 68 > my > 308:  # Her tjekkes om musen er inde i "Play again" hitboxen
                             pause = False
                             self.Jump = False
                             self.JumpCount = 7
@@ -386,7 +386,6 @@ def RedrawGameWindow():
                 Menu.ControlsText()
                 Menu.QuitText()
 
-
 class Buttons:
     mx, my = pygame.mouse.get_pos()
 
@@ -397,7 +396,6 @@ class Buttons:
         global RunMouseButton
         global RunMouseButton2
         global PlayStart
-        print(mx, my)
         if RunMouseButton == True and RunMouseButton2 == True:
             if 413 + 180 > mx > 413 and 158 + 80 > my > 158:  # Her tjekkes om musen er inde i "Play" hitboxen
                 PlayStart = True
@@ -431,8 +429,8 @@ class Buttons:
 
 man = Player1(50, 375, 50, 50)
 obstacle = Enemy(1000, 395, 50, 50)
-movBGs = MovBGs(3, 10)
-pointSystem = PointSystem(0, 400)
+movBGs = MovBGs(5, 5)
+pointSystem = PointSystem(0, 350)
 Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 
