@@ -1,4 +1,4 @@
-import pygame, sys, os, time
+import pygame, sys, os, time, random
 from pygame import mixer
 
 #Pygame setup
@@ -13,7 +13,7 @@ Trees = pygame.image.load('resources\images\Trees1.png').convert_alpha()
 mBG = pygame.image.load('resources\images\Mountain.png').convert_alpha()
 Foreground = pygame.image.load('resources\images\Foreground.gif').convert_alpha()
 char = pygame.image.load("resources\images\char.png").convert_alpha()
-enemy = pygame.image.load("resources\images\L1.png").convert_alpha()
+enemy = pygame.image.load("resources\images\Trstub.png").convert_alpha()
 controlsScreen = pygame.image.load("resources\images\Controls.png").convert_alpha()
 image1 = pygame.image.load('resources\images\Rightpip1.png')
 image2 = pygame.image.load('resources\images\Rightpip2.png')
@@ -55,7 +55,17 @@ Leftpip = pygame.image.load('resources\images\Leftpip1.png')
 PolarBear = pygame.image.load('resources\images\polarbear1.png')
 PolarBear2 = pygame.image.load('resources\images\polarbear2.png')
 PolarBear3 = pygame.image.load('resources\images\polarbear3.png')
+Bird1 = pygame.image.load('resources\images\FlyingBird0.png')
+Bird2 = pygame.image.load('resources\images\FlyingBird1.png')
+Bird3 = pygame.image.load('resources\images\FlyingBird2.png')
+Bird4 = pygame.image.load('resources\images\FlyingBird3.png')
+Bird5 = pygame.image.load('resources\images\FlyingBird4.png')
+Bird6 = pygame.image.load('resources\images\FlyingBird5.png')
+Bird7 = pygame.image.load('resources\images\FlyingBird6.png')
+Bird8 = pygame.image.load('resources\images\FlyingBird7.png')
+
 PolarbearAni = [PolarBear, PolarBear2]
+BirdAni = [Bird1, Bird2, Bird3, Bird4, Bird5, Bird6, Bird7, Bird8]
 FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png').convert_alpha(),
@@ -228,7 +238,7 @@ class MovBGs:
         if rel_x_Trees < self.W:
             win.blit(Trees, (rel_x_Trees, 0))
         self.xtree -= self.treeSpeed
-        self.treeSpeed += 0.01
+        self.treeSpeed += 0.005
 
     def movingForeground(self):
         rel_x_foreground = self.xforeground % Foreground.get_rect().width
@@ -236,7 +246,7 @@ class MovBGs:
         if rel_x_foreground < self.W:
             win.blit(Foreground, (rel_x_foreground, 0))
         self.xforeground -= self.foregroundSpeed
-        self.foregroundSpeed += 0.01
+        self.foregroundSpeed += 0.005
 
 
 class PointSystem:
@@ -248,7 +258,7 @@ class PointSystem:
         font = pygame.font.SysFont("Comic Sans MS", 60)
         text = font.render("Score: " + str(self.Score), True, (0, 0, 0))
         if run == True:
-            win.blit(text, [self.xPos, 50])
+            win.blit(text, [self.xPos, 0])
             self.Score += 1
 
 
@@ -259,7 +269,7 @@ class Player1:
             self.width = width
             self.h = height
             self.Jump = False
-            self.JumpCount = 7
+            self.JumpCount = 8
             self.hitbox = (self.x + 33, self.y + 13, 40, 73)
             self.neg = 1
             self.WalkingAnimation = 0
@@ -275,7 +285,7 @@ class Player1:
             win.blit(image12, (self.x, self.y))
 
     def hit(self):
-        self.x = 60
+        self.x = 250
         self.y = 269
         GameOver = pygame.image.load('resources\images\Gameover.png')
         win.blit(GameOver, (0, 25))
@@ -293,7 +303,7 @@ class Player1:
                         if 293 + 412 > mx > 293 and 308 + 68 > my > 308:  # Her tjekkes om musen er inde i "Play again" hitboxen
                             pause = False
                             self.Jump = False
-                            self.JumpCount = 7
+                            self.JumpCount = 8
 
     def Jumping(self):
         keys = pygame.key.get_pressed()
@@ -301,7 +311,7 @@ class Player1:
             if keys[pygame.K_UP]:
                 man.Jump = True
         else:
-            if man.JumpCount >= -7:
+            if man.JumpCount >= -8:
                 neg = 1
                 if man.JumpCount <= 0:
                     neg = -1
@@ -309,39 +319,66 @@ class Player1:
                 man.JumpCount -= 1
             else:
                 man.Jump = False
-                man.JumpCount = 7
+                man.JumpCount = 8
 
 
 class Enemy:
-    def __init__(self, x, y, width, heigth, WalkingAnimation):
+    def __init__(self, x, y, width, heigth):
         self.x = x
         self.y = y
         self.width = width
         self.heigth = heigth
-        self.vel = 5
+        self.vel = 7
+        self.vel2 = 9
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
-        self.WalkingAnimation = WalkingAnimation
-    def draw(self,win):
-        win.blit(enemy, (self.x, self.y))
-        self.hitbox = (self.x + 17, self.y + 11, 29, 52)
+        self.WalkingAnimation = 0
+        self.WalkingAnimation2 = 0
+        self.WhichEnemy = random.randint(1, 2)
+
+    def drawTrstub(self, win):
+        if self.WhichEnemy == 1:
+            self.y = 325
+            win.blit(enemy, (self.x, self.y))
+            self.hitbox = (self.x + 17, self.y + 11, 29, 52)
+
+    def drawBird(self):
+        if self.WhichEnemy == 2:
+            if self.WalkingAnimation2 > 7:
+                self.WalkingAnimation2 = 0
+            win.blit(BirdAni[self.WalkingAnimation2], (self.x, self.y))
+            self.WalkingAnimation2 += 1
+            self.hitbox = (self.x + 17, self.y + 11, 29, 52)
 
     def move(self):
-        self.vel += 0.01
-        self.x -= self.vel
-        if self.x < 0 - self.width:
-            self.x = 1000
+        self.vel += 0.005
+        self.vel2 += 0.005
+        if self.WhichEnemy == 1:
+            self.x -= self.vel
+            if self.x < 0 - self.width:
+                RandomValue_x = random.uniform(1, 1000)
+                self.x = 1000 + 1 * RandomValue_x
+                self.WhichEnemy = random.randint(1, 2)
 
-
+        if self.WhichEnemy == 2:
+            self.x -= self.vel2
+            if self.x < 0 - self.width:
+                RandomValue_x = random.uniform(1, 1000)
+                RandomValue_y = random.uniform(1, 130)
+                self.x = 1000 + 1 * RandomValue_x
+                self.y = 200 + 1 * RandomValue_y
+                self.WhichEnemy = random.randint(1, 2)
 
     def hit(self):
         self.x = 1000
-        self.y = 395
+        self.y = 325
 
-    def animation(self):
+
+    def animationPolarbear(self):
         if self.WalkingAnimation > 1:
             self.WalkingAnimation = 0
         win.blit(PolarbearAni[self.WalkingAnimation], (20, 269))
         self.WalkingAnimation += 1
+
 
 def PlayMusic():
     if FurnaceSoundEffect == True:
@@ -369,16 +406,17 @@ DoorSoundEffectRepeat2 = 0
 def RedrawGameWindow():
     if StopDrawing == False:
         if startspil == True:
-            clock.tick(60)
+            clock.tick(30)
             movBGs.mountainBG()
             movBGs.movingTrees()
             movBGs.movingForeground()
             pointSystem.PointSystem_On_Screen()
-            obstacle.draw(win)
+            obstacle.drawTrstub(win)
+            obstacle.drawBird()
             obstacle.move()
             Player1.Jumping(0)
             man.sprite(win)
-            obstacle.animation()
+            obstacle.animationPolarbear()
         else:
             if PlayStart == True: #Resten af startscenen placeres herinde og laver en cutscene
                 Menu.MountainBG()
@@ -445,12 +483,12 @@ class Buttons:
                 QuitStart = True
 
 man = Player1(250, 269, 50, 50)
-obstacle = Enemy(1000, 395, 50, 50, 0)
-movBGs = MovBGs(5, 5)
+obstacle = Enemy(1000, 325, 50, 50)
+movBGs = MovBGs(7, 7)
 pointSystem = PointSystem(0, 350)
-Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 350, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
-
+WhichEnemy = 0
 
 # todo Skal flyttes senere
 PlayStart = False
