@@ -406,7 +406,7 @@ DoorSoundEffectRepeat2 = 0
 def RedrawGameWindow():
     if StopDrawing == False:
         if startspil == True:
-            clock.tick(30)
+            clock.tick(60)
             movBGs.mountainBG()
             movBGs.movingTrees()
             movBGs.movingForeground()
@@ -486,7 +486,7 @@ man = Player1(250, 269, 50, 50)
 obstacle = Enemy(1000, 325, 50, 50)
 movBGs = MovBGs(7, 7)
 pointSystem = PointSystem(0, 350)
-Menu = Menu(3, 0, 0, 0, 350, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 WhichEnemy = 0
 
