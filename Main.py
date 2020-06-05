@@ -52,9 +52,20 @@ PlayText = pygame.image.load('menu\PlayText.png').convert_alpha()
 ControlsText = pygame.image.load('menu\ControlsText.png').convert_alpha()
 QuitText = pygame.image.load('menu\QuitText.png').convert_alpha()
 Leftpip = pygame.image.load('resources\images\Leftpip1.png')
-PolarBear = pygame.image.load('resources\images\polarbear1.png')
-PolarBear2 = pygame.image.load('resources\images\polarbear2.png')
-PolarBear3 = pygame.image.load('resources\images\polarbear3.png')
+PolarBear1 = pygame.image.load('resources\images\Polarbear00.png')
+PolarBear2 = pygame.image.load('resources\images\Polarbear01.png')
+PolarBear3 = pygame.image.load('resources\images\Polarbear02.png')
+PolarBear4 = pygame.image.load('resources\images\Polarbear03.png')
+PolarBear5 = pygame.image.load('resources\images\Polarbear04.png')
+PolarBear6 = pygame.image.load('resources\images\Polarbear05.png')
+PolarBear7 = pygame.image.load('resources\images\Polarbear06.png')
+PolarBear8 = pygame.image.load('resources\images\Polarbear07.png')
+PolarBear9 = pygame.image.load('resources\images\Polarbear08.png')
+PolarBear10 = pygame.image.load('resources\images\Polarbear09.png')
+PolarBear11 = pygame.image.load('resources\images\Polarbear10.png')
+PolarBear12 = pygame.image.load('resources\images\Polarbear11.png')
+
+PolarBearScary = pygame.image.load('resources\images\polarbearScary.png')
 Bird1 = pygame.image.load('resources\images\FlyingBird0.png')
 Bird2 = pygame.image.load('resources\images\FlyingBird1.png')
 Bird3 = pygame.image.load('resources\images\FlyingBird2.png')
@@ -64,7 +75,7 @@ Bird6 = pygame.image.load('resources\images\FlyingBird5.png')
 Bird7 = pygame.image.load('resources\images\FlyingBird6.png')
 Bird8 = pygame.image.load('resources\images\FlyingBird7.png')
 
-PolarbearAni = [PolarBear, PolarBear2]
+PolarbearAni = [PolarBear1, PolarBear2, PolarBear3, PolarBear4, PolarBear5, PolarBear6, PolarBear7, PolarBear8, PolarBear9, PolarBear10, PolarBear11]
 BirdAni = [Bird1, Bird2, Bird3, Bird4, Bird5, Bird6, Bird7, Bird8]
 FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png').convert_alpha(),
@@ -168,17 +179,17 @@ class Menu:
                 if self.Tid >= 190 and self.Tid <= 220:
                     win.blit(QuestionMark, (706, 210))
                     if self.Tid >= 190 and self.Tid <= 200:
-                        if self.WalkingAnimation2 > 1:
+                        if self.WalkingAnimation2 > 10:
                             self.WalkingAnimation2 = 0
                         win.blit(PolarbearAni[self.WalkingAnimation2], (self.xPos2, self.yPos2))
                         self.WalkingAnimation2 += 1
                         self.xPos2 += 8
 
                 if self.Tid >= 200 and self.Tid <= 250:
-                    win.blit(PolarBear3, (self.xPos2, self.yPos2))
+                    win.blit(PolarBearScary, (self.xPos2, self.yPos2))
 
                 elif self.Tid >= 230 and self.Tid <= 380:
-                    if self.WalkingAnimation2 > 1:
+                    if self.WalkingAnimation2 > 10:
                         self.WalkingAnimation2 = 0
                     win.blit(PolarbearAni[self.WalkingAnimation2], (self.xPos2, self.yPos2))
                     self.WalkingAnimation2 += 1
@@ -187,7 +198,7 @@ class Menu:
                 if self.Tid >= 230 and self.Tid <= 250:
                     win.blit(ExclamationMark, (714, 210))
 
-                if self.Tid == 380:
+                if self.Tid == 330:
                     startspil = True
         else:
             if self.ImageNRAnimation > 4:
@@ -241,6 +252,7 @@ class MovBGs:
         self.treeSpeed += 0.005
 
     def movingForeground(self):
+        global pause
         rel_x_foreground = self.xforeground % Foreground.get_rect().width
         win.blit(Foreground, (rel_x_foreground - Foreground.get_rect().width, 0))
         if rel_x_foreground < self.W:
@@ -250,15 +262,15 @@ class MovBGs:
 
 
 class PointSystem:
-    def __init__(self, score, xPos):
+    def __init__(self, score):
         self.Score = score
-        self.xPos = xPos
 
     def PointSystem_On_Screen(self):
-        font = pygame.font.SysFont("Comic Sans MS", 60)
+        font = pygame.font.SysFont("Comic Sans MS", 85)
         text = font.render("Score: " + str(self.Score), True, (0, 0, 0))
+
         if run == True:
-            win.blit(text, [self.xPos, 0])
+            win.blit(text, [250, 0])
             self.Score += 1
 
 
@@ -328,8 +340,8 @@ class Enemy:
         self.y = y
         self.width = width
         self.heigth = heigth
-        self.vel = 7
-        self.vel2 = 9
+        self.vel = 10
+        self.vel2 = self.vel * 1.3
         self.hitbox = (self.x + 17, self.y + 11, 29, 52)
         self.WalkingAnimation = 0
         self.WalkingAnimation2 = 0
@@ -371,10 +383,13 @@ class Enemy:
     def hit(self):
         self.x = 1000
         self.y = 325
+        self.vel = 10
+        self.vel2 = self.vel * 1.3
+
 
 
     def animationPolarbear(self):
-        if self.WalkingAnimation > 1:
+        if self.WalkingAnimation > 10:
             self.WalkingAnimation = 0
         win.blit(PolarbearAni[self.WalkingAnimation], (20, 269))
         self.WalkingAnimation += 1
@@ -484,8 +499,8 @@ class Buttons:
 
 man = Player1(250, 269, 50, 50)
 obstacle = Enemy(1000, 325, 50, 50)
-movBGs = MovBGs(7, 7)
-pointSystem = PointSystem(0, 350)
+movBGs = MovBGs(10, 10)
+pointSystem = PointSystem(0)
 Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 WhichEnemy = 0
@@ -504,7 +519,9 @@ while run:
         if man.hitbox[0] + man.hitbox[2] > obstacle.hitbox[0] and man.hitbox[0] < obstacle.hitbox[0] + obstacle.hitbox[2]:
             man.hit()
             obstacle.hit()
-            pointSystem = PointSystem(0, 400)
+            pointSystem = PointSystem(0)
+            movBGs = MovBGs(10, 10)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
