@@ -36,22 +36,22 @@ image17 = pygame.image.load('resources\images\Animationpip1.png')
 image18 = pygame.image.load('resources\images\PipDoorAni1.png')
 ExclamationMark = pygame.image.load('resources\images\ExclamationMark.png')
 QuestionMark = pygame.image.load('resources\images\QuestionMark.png')
-menuBG = [pygame.image.load('menu\BGAnimation\MainMenu1.png'),
-          pygame.image.load('menu\BGAnimation\MainMenu2.png'),
-          pygame.image.load('menu\BGAnimation\MainMenu3.png'),
-          pygame.image.load('menu\BGAnimation\MainMenu4.png'),
-          pygame.image.load('menu\BGAnimation\MainMenu5.png'),
-          pygame.image.load('startScene\MainMenu6.png')]
+menuBG = [pygame.image.load('resources\menu\BGAnimation\MainMenu1.png'),
+          pygame.image.load('resources\menu\BGAnimation\MainMenu2.png'),
+          pygame.image.load('resources\menu\BGAnimation\MainMenu3.png'),
+          pygame.image.load('resources\menu\BGAnimation\MainMenu4.png'),
+          pygame.image.load('resources\menu\BGAnimation\MainMenu5.png'),
+          pygame.image.load('resources\startScene\MainMenu6.png')]
 WalkingPip = [image12, image13, image14]
 PipBehind = pygame.image.load('resources\images\Pipbehind.png')
-Door1 = pygame.image.load('menu\DoorAnimation\Door1.png').convert_alpha()
-Door2 = pygame.image.load('menu\DoorAnimation\Door2.png').convert_alpha()
-Door3 = pygame.image.load('menu\DoorAnimation\Door3.png').convert_alpha()
-menuBG2 = pygame.image.load('menu\MenuMountain.png').convert_alpha()
-JumpPenguinText = pygame.image.load('menu\JumpPenguinText.png').convert_alpha()
-PlayText = pygame.image.load('menu\PlayText.png').convert_alpha()
-ControlsText = pygame.image.load('menu\ControlsText.png').convert_alpha()
-QuitText = pygame.image.load('menu\QuitText.png').convert_alpha()
+Door1 = pygame.image.load('resources\menu\DoorAnimation\Door1.png').convert_alpha()
+Door2 = pygame.image.load('resources\menu\DoorAnimation\Door2.png').convert_alpha()
+Door3 = pygame.image.load('resources\menu\DoorAnimation\Door3.png').convert_alpha()
+menuBG2 = pygame.image.load('resources\menu\MenuMountain.png').convert_alpha()
+JumpPenguinText = pygame.image.load('resources\menu\JumpPenguinText.png').convert_alpha()
+PlayText = pygame.image.load('resources\menu\PlayText.png').convert_alpha()
+ControlsText = pygame.image.load('resources\menu\ControlsText.png').convert_alpha()
+QuitText = pygame.image.load('resources\menu\QuitText.png').convert_alpha()
 Leftpip = pygame.image.load('resources\images\Leftpip1.png')
 PolarBear1 = pygame.image.load('resources\images\Polarbear00.png')
 PolarBear2 = pygame.image.load('resources\images\Polarbear01.png')
@@ -78,12 +78,12 @@ Bird8 = pygame.image.load('resources\images\FlyingBird7.png')
 
 PolarbearAni = [PolarBear1, PolarBear2, PolarBear3, PolarBear4, PolarBear5, PolarBear6, PolarBear7, PolarBear8, PolarBear9, PolarBear10, PolarBear11]
 BirdAni = [Bird1, Bird2, Bird3, Bird4, Bird5, Bird6, Bird7, Bird8]
-FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingvin1.png').convert_alpha(),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin2.png').convert_alpha(),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin3.png').convert_alpha(),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin4.png').convert_alpha(),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png').convert_alpha(),
-                           pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png').convert_alpha()]
+FlossingPingvinBilleder = [pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin1.png').convert_alpha(),
+                           pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin2.png').convert_alpha(),
+                           pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin3.png').convert_alpha(),
+                           pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin4.png').convert_alpha(),
+                           pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin5.png').convert_alpha(),
+                           pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin6.png').convert_alpha()]
 # Pygame mixer
 
 pygame.mixer.init()
@@ -509,7 +509,7 @@ man = Player1(250, 269, 50, 50)
 obstacle = Enemy(1000, 325, 50, 50)
 movBGs = MovBGs(10, 10, 0.1)
 pointSystem = PointSystem(0)
-Menu = Menu(3, 0, 0, 0, 300, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 WhichEnemy = 0
 
