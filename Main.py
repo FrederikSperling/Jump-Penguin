@@ -85,11 +85,12 @@ FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingv
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png').convert_alpha()]
 #Pygame mixer
 pygame.mixer.init()
-
-
-FurnaceSoundEffect = False
-DoorSoundEffect1 = False
-DoorSoundEffect2 = False
+DoorSoundEffect1 = mixer.Sound('resources\soundEffects\DoorSoundEffect1.ogg')
+DoorSoundEffect2 = mixer.Sound('resources\soundEffects\DoorSoundEffect2.ogg')
+FurnaceSoundEffect = mixer.Sound('resources\soundEffects\Furnace.ogg')
+PolarbearRoar = mixer.Sound('resources\soundEffects\PolarbearRoar.ogg')
+JumpingSound = mixer.Sound('resources\soundEffects\Jumping.ogg')
+JumpingSound.set_volume(0.3)
 
 class Menu:
     def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid, xPosAnimation, yPosAnimation, WalkingAnimation, xPosAnimation2, yPosAnimation2, WalkingAnimation2):
@@ -109,11 +110,7 @@ class Menu:
 
         if PlayStart == True: #Animation for baggrunden i menuen og startscenen. Ikke færdig endnu men in progress
             global startspil
-            global FurnaceSoundEffect
-            global DoorSoundEffect1
-            global DoorSoundEffect2
             if self.AntalBilleder1 < 30:
-                FurnaceSoundEffect = True
                 clock.tick(5)
                 if self.ImageNRAnimation > 4: #Resetter listen af billeder
                     self.ImageNRAnimation = 0
@@ -121,11 +118,12 @@ class Menu:
                 self.ImageNRAnimation += 1 #Skifter vores baggrund i menuen så den bliver animeret
                 self.AntalBilleder1 += 1
                 win.blit(Door1, (0, 0))
+                if self.AntalBilleder1 == 1:
+                    FurnaceSoundEffect.play()
             else:
-                FurnaceSoundEffect = False
+                FurnaceSoundEffect.stop()
                 clock.tick(20)
                 win.blit(menuBG[5], (0, 0))
-                mixer.music.stop()
                 print(self.Tid)
                 self.Tid += 1
                 if self.Tid <= 15:
@@ -187,7 +185,8 @@ class Menu:
 
                 if self.Tid >= 200 and self.Tid <= 250:
                     win.blit(PolarBearScary, (self.xPos2, self.yPos2))
-
+                    if self.Tid == 200:
+                        PolarbearRoar.play()
                 elif self.Tid >= 230 and self.Tid <= 380:
                     if self.WalkingAnimation2 > 10:
                         self.WalkingAnimation2 = 0
@@ -200,11 +199,19 @@ class Menu:
 
                 if self.Tid == 330:
                     startspil = True
+
+                if self.Tid == 15:
+                    DoorSoundEffect1.play()
+                elif self.Tid == 30:
+                    DoorSoundEffect2.play()
+
         else:
             if self.ImageNRAnimation > 4:
                 self.ImageNRAnimation = 0
             win.blit(menuBG[self.ImageNRAnimation], (0, 0))
             self.ImageNRAnimation += 1
+
+
 
     def MountainBG(self):
         win.blit(menuBG2, (0, -150))
@@ -292,7 +299,7 @@ class Player1:
             self.WalkingAnimation = 0
         win.blit(WalkingPip[self.WalkingAnimation], (self.x, self.y))
         self.WalkingAnimation += 1
-        self.hitbox = (self.x + 33, self.y + 13, 40, 73)
+        self.hitbox = (self.x + 13, self.y + 65, 43, 75)
         if self.Jump == True:
             win.blit(image12, (self.x, self.y))
 
@@ -322,6 +329,7 @@ class Player1:
         if not man.Jump:
             if keys[pygame.K_UP]:
                 man.Jump = True
+                JumpingSound.play()
         else:
             if man.JumpCount >= -8:
                 neg = 1
@@ -351,7 +359,7 @@ class Enemy:
         if self.WhichEnemy == 1:
             self.y = 325
             win.blit(enemy, (self.x, self.y))
-            self.hitbox = (self.x + 17, self.y + 11, 29, 52)
+            self.hitbox = (self.x + 37, self.y + 17, 48, 75)
 
     def drawBird(self):
         if self.WhichEnemy == 2:
@@ -359,7 +367,7 @@ class Enemy:
                 self.WalkingAnimation2 = 0
             win.blit(BirdAni[self.WalkingAnimation2], (self.x, self.y))
             self.WalkingAnimation2 += 1
-            self.hitbox = (self.x + 17, self.y + 11, 29, 52)
+            self.hitbox = (self.x + 20, self.y + 27, 50, 28)
 
     def move(self):
         self.vel += 0.005
@@ -395,28 +403,6 @@ class Enemy:
         self.WalkingAnimation += 1
 
 
-def PlayMusic():
-    if FurnaceSoundEffect == True:
-        global FurnaceSoundEffectRepeat
-        if FurnaceSoundEffectRepeat == 0:
-            pygame.mixer.music.load('resources\soundEffects\Furnace.mp3')
-            pygame.mixer.music.play(1)
-            FurnaceSoundEffectRepeat += 1
-    if DoorSoundEffect1 == True:
-        global DoorSoundEffectRepeat
-        if DoorSoundEffectRepeat == 0:
-            pygame.mixer.music.load('resources\soundEffects\DoorSoundEffect1.mp3')
-            pygame.mixer.music.play(1)
-            DoorSoundEffectRepeat += 1
-    if DoorSoundEffect2 == True:
-        global DoorSoundEffectRepeat2
-        if DoorSoundEffectRepeat2 == 0:
-            pygame.mixer.music.load('resources\soundEffects\DoorSoundEffect2.mp3')
-            pygame.mixer.music.play(1)
-            DoorSoundEffectRepeat2 += 1
-FurnaceSoundEffectRepeat = 0
-DoorSoundEffectRepeat = 0
-DoorSoundEffectRepeat2 = 0
 
 def RedrawGameWindow():
     if StopDrawing == False:
@@ -472,12 +458,13 @@ class Buttons:
                 RunMouseButton = False
                 RunMouseButton2 = False
 
+
     def ControlsButton(self):
         global RunMouseButton
         global RunMouseButton2
         global ControlsStart
         if RunMouseButton == True and RunMouseButton2 == True:
-            if 320 + 357 > mx > 320 and 285 + 80 > my > 285:  # Her tjekkes om musen er inde i "Controls" hitbox # todo mangler en baggrund og en knap der fører tilbage til main menu
+            if 320 + 357 > mx > 320 and 285 + 80 > my > 285:
                 win.fill((255, 0, 0))
                 ControlsStart = True
                 RunMouseButton2 = False
@@ -491,7 +478,7 @@ class Buttons:
         global RunMouseButton2
         global QuitStart
         if RunMouseButton == True and RunMouseButton2 == True:
-            if 423 + 147 > mx > 423 and 400 + 80 > my > 400:  # Her tjekkes om musen er inde i "Quit" hitbox # todo mangler en baggrund
+            if 423 + 147 > mx > 423 and 400 + 80 > my > 400:
                 win.fill((0, 255, 0))
                 RunMouseButton = False
                 RunMouseButton2 = False
@@ -501,7 +488,7 @@ man = Player1(250, 269, 50, 50)
 obstacle = Enemy(1000, 325, 50, 50)
 movBGs = MovBGs(10, 10)
 pointSystem = PointSystem(0)
-Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 300, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 WhichEnemy = 0
 
@@ -534,5 +521,4 @@ while run:
             buttons.QuitButton()
 
     RedrawGameWindow()
-    PlayMusic()
     pygame.display.update()
