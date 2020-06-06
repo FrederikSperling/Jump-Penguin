@@ -488,7 +488,7 @@ man = Player1(250, 269, 50, 50)
 obstacle = Enemy(1000, 325, 50, 50)
 movBGs = MovBGs(10, 10)
 pointSystem = PointSystem(0)
-Menu = Menu(3, 0, 0, 0, 300, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 WhichEnemy = 0
 
