@@ -1,5 +1,6 @@
 import pygame, sys, os, time, random
 from pygame import mixer
+from os import path
 
 #Pygame setup
 win = pygame.display.set_mode((1000, 500))
@@ -83,14 +84,15 @@ FlossingPingvinBilleder = [pygame.image.load('menu\FlossingPingvin\FlossingPingv
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin4.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin5.png').convert_alpha(),
                            pygame.image.load('menu\FlossingPingvin\FlossingPingvin6.png').convert_alpha()]
-#Pygame mixer
+# Pygame mixer
+
 pygame.mixer.init()
 DoorSoundEffect1 = mixer.Sound('resources\soundEffects\DoorSoundEffect1.ogg')
 DoorSoundEffect2 = mixer.Sound('resources\soundEffects\DoorSoundEffect2.ogg')
 FurnaceSoundEffect = mixer.Sound('resources\soundEffects\Furnace.ogg')
 PolarbearRoar = mixer.Sound('resources\soundEffects\PolarbearRoar.ogg')
 JumpingSound = mixer.Sound('resources\soundEffects\Jumping.ogg')
-JumpingSound.set_volume(0.3)
+JumpingSound.set_volume(0.2)
 
 class Menu:
     def __init__(self, Repeats, AntalBilleder1, ImageNRAnimation, ImageNRFlossPingvin, SceneTid, xPosAnimation, yPosAnimation, WalkingAnimation, xPosAnimation2, yPosAnimation2, WalkingAnimation2):
@@ -107,7 +109,6 @@ class Menu:
         self.WalkingAnimation2 = WalkingAnimation2
 
     def animation(self):
-
         if PlayStart == True: #Animation for baggrunden i menuen og startscenen. Ikke færdig endnu men in progress
             global startspil
             if self.AntalBilleder1 < 30:
@@ -238,19 +239,24 @@ class Menu:
         self.ImageNRFlossPingvin += 1 #Skifter vores baggrund i menuen så den bliver animeret
 
 class MovBGs:
-    def __init__(self, treespeed, foregroundspeed):
+    def __init__(self, treespeed, foregroundspeed, mountainspeed):
         self.W = 1000
         self.treeSpeed = treespeed
         self.xtree = 0
-
+        self.mountainSpeed = mountainspeed
+        self.xmountain = 0
         self.foregroundSpeed = foregroundspeed
         self.xforeground = 0
 
     def mountainBG(self):
-        win.blit(mBG, (0, 0))
+        rel_x_Mountain = self.xmountain % mBG.get_rect().width
+        win.blit(mBG, (rel_x_Mountain - mBG.get_rect().width, 0))
+        if rel_x_Mountain < self.W:
+            win.blit(mBG, (rel_x_Mountain, 0))
+        self.xmountain -= self.mountainSpeed
+        self.mountainSpeed += 0.00005
 
     def movingTrees(self):
-        global pause
         rel_x_Trees = self.xtree % Trees.get_rect().width
         win.blit(Trees, (rel_x_Trees - Trees.get_rect().width, 0))
         if rel_x_Trees < self.W:
@@ -259,7 +265,6 @@ class MovBGs:
         self.treeSpeed += 0.005
 
     def movingForeground(self):
-        global pause
         rel_x_foreground = self.xforeground % Foreground.get_rect().width
         win.blit(Foreground, (rel_x_foreground - Foreground.get_rect().width, 0))
         if rel_x_foreground < self.W:
@@ -271,14 +276,27 @@ class MovBGs:
 class PointSystem:
     def __init__(self, score):
         self.Score = score
+        self.highscore = 0
 
     def PointSystem_On_Screen(self):
-        font = pygame.font.SysFont("Comic Sans MS", 85)
+        font = pygame.font.SysFont("Comic Sans MS", 60)
         text = font.render("Score: " + str(self.Score), True, (0, 0, 0))
+        self.dir = path.dirname(__file__)
+        text2 = font.render('Highscore: ' + str(self.highscore), 1, (0, 0, 0))
+        win.blit(text, [10, 0])
+        self.Score += 1
+        win.blit(text2, [530, 0])
 
-        if run == True:
-            win.blit(text, [250, 0])
-            self.Score += 1
+        with open(path.join(self.dir, HS_FILE), 'r+') as f:
+            try:
+                self.highscore = int(f.read())
+            except:
+                self.highscore = 0
+
+        if self.Score > self.highscore:
+            self.highscore = self.Score
+            with open(path.join(self.dir, HS_FILE), 'w') as f:
+                f.write(str(self.Score))
 
 
 class Player1:
@@ -313,6 +331,8 @@ class Player1:
         RunMouseButton = True
         pause = True
         while pause:
+            global pointSystem
+            pointSystem = PointSystem(0)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -320,6 +340,7 @@ class Player1:
                     mx, my = pygame.mouse.get_pos()
                     if RunMouseButton == True:
                         if 293 + 412 > mx > 293 and 308 + 68 > my > 308:  # Her tjekkes om musen er inde i "Play again" hitboxen
+                            pointSystem = PointSystem(0)
                             pause = False
                             self.Jump = False
                             self.JumpCount = 8
@@ -486,9 +507,9 @@ class Buttons:
 
 man = Player1(250, 269, 50, 50)
 obstacle = Enemy(1000, 325, 50, 50)
-movBGs = MovBGs(10, 10)
+movBGs = MovBGs(10, 10, 0.1)
 pointSystem = PointSystem(0)
-Menu = Menu(3, 0, 0, 0, 0, 102, 170, 0, -100, 230, 0)
+Menu = Menu(3, 0, 0, 0, 300, 102, 170, 0, -100, 230, 0)
 buttons = Buttons()
 WhichEnemy = 0
 
@@ -500,14 +521,14 @@ ControlsStart = False
 QuitStart = False
 RunMouseButton = True  # Gør så man ikke kan trykke på knapperne efter de bliver fjernet
 RunMouseButton2 = True
+HS_FILE = 'Highscore.txt'
 run = True
 while run:
     if man.hitbox[1] < obstacle.hitbox[1] + obstacle.hitbox[3] and man.hitbox[1] + man.hitbox[3] > obstacle.hitbox[1]:
         if man.hitbox[0] + man.hitbox[2] > obstacle.hitbox[0] and man.hitbox[0] < obstacle.hitbox[0] + obstacle.hitbox[2]:
             man.hit()
             obstacle.hit()
-            pointSystem = PointSystem(0)
-            movBGs = MovBGs(10, 10)
+            movBGs = MovBGs(10, 10, 0.1)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -515,7 +536,6 @@ while run:
             quit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            print(mx, my)
             buttons.PlayButton()
             buttons.ControlsButton()
             buttons.QuitButton()
