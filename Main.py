@@ -16,24 +16,24 @@ Foreground = pygame.image.load('resources\images\Foreground.gif').convert_alpha(
 char = pygame.image.load("resources\images\char.png").convert_alpha()
 enemy = pygame.image.load("resources\images\Trstub.png").convert_alpha()
 controlsScreen = pygame.image.load("resources\images\Controls.png").convert_alpha()
-image1 = pygame.image.load('resources\images\Rightpip1.png')
-image2 = pygame.image.load('resources\images\Rightpip2.png')
-image3 = pygame.image.load('resources\images\Rightpip3.png')
-image4 = pygame.image.load('resources\images\Rightpip4.png')
-image5 = pygame.image.load('resources\images\Rightpip5.png')
-image6 = pygame.image.load('resources\images\Rightpip6.png')
-image7 = pygame.image.load('resources\images\Jumpingpip1.png')
-image8 = pygame.image.load('resources\images\Jumpingpip2.png')
-image9 = pygame.image.load('resources\images\Jumpingpip3.png')
-image10 = pygame.image.load('resources\images\Jumpingpip4.png')
-image11 = pygame.image.load('resources\images\Jumpingpip5.png')
-image12 = pygame.image.load('resources\images\deadpip1.png')
-image13 = pygame.image.load('resources\images\deadpip2.png')
-image14 = pygame.image.load('resources\images\deadpip3.png')
-image15 = pygame.image.load('resources\images\deadpip4.png')
-#image16 = pygame.image.load('resources\images\deadpip5.png')
-image17 = pygame.image.load('resources\images\Animationpip1.png')
-image18 = pygame.image.load('resources\images\PipDoorAni1.png')
+image1 = pygame.image.load('resources\images\Rightpip1.png').convert_alpha()
+image2 = pygame.image.load('resources\images\Rightpip2.png').convert_alpha()
+image3 = pygame.image.load('resources\images\Rightpip3.png').convert_alpha()
+image4 = pygame.image.load('resources\images\Rightpip4.png').convert_alpha()
+image5 = pygame.image.load('resources\images\Rightpip5.png').convert_alpha()
+image6 = pygame.image.load('resources\images\Rightpip6.png').convert_alpha()
+image7 = pygame.image.load('resources\images\Jumpingpip1.png').convert_alpha()
+image8 = pygame.image.load('resources\images\Jumpingpip2.png').convert_alpha()
+image9 = pygame.image.load('resources\images\Jumpingpip3.png').convert_alpha()
+image10 = pygame.image.load('resources\images\Jumpingpip4.png').convert_alpha()
+image11 = pygame.image.load('resources\images\Jumpingpip5.png').convert_alpha()
+image12 = pygame.image.load('resources\images\deadpip1.png').convert_alpha()
+image13 = pygame.image.load('resources\images\deadpip2.png').convert_alpha()
+image14 = pygame.image.load('resources\images\deadpip3.png').convert_alpha()
+image15 = pygame.image.load('resources\images\deadpip4.png').convert_alpha()
+image16 = pygame.image.load('resources\images\Animationpip1.png')
+image17 = pygame.image.load('resources\images\PipDoorAni1.png')
+WalkingPip = [image12, image13, image14]
 ExclamationMark = pygame.image.load('resources\images\ExclamationMark.png')
 QuestionMark = pygame.image.load('resources\images\QuestionMark.png')
 menuBG = [pygame.image.load('resources\menu\BGAnimation\MainMenu1.png'),
@@ -42,7 +42,6 @@ menuBG = [pygame.image.load('resources\menu\BGAnimation\MainMenu1.png'),
           pygame.image.load('resources\menu\BGAnimation\MainMenu4.png'),
           pygame.image.load('resources\menu\BGAnimation\MainMenu5.png'),
           pygame.image.load('resources\startScene\MainMenu6.png')]
-WalkingPip = [image12, image13, image14]
 PipBehind = pygame.image.load('resources\images\Pipbehind.png')
 Door1 = pygame.image.load('resources\menu\DoorAnimation\Door1.png').convert_alpha()
 Door2 = pygame.image.load('resources\menu\DoorAnimation\Door2.png').convert_alpha()
@@ -52,30 +51,29 @@ JumpPenguinText = pygame.image.load('resources\menu\JumpPenguinText.png').conver
 PlayText = pygame.image.load('resources\menu\PlayText.png').convert_alpha()
 ControlsText = pygame.image.load('resources\menu\ControlsText.png').convert_alpha()
 QuitText = pygame.image.load('resources\menu\QuitText.png').convert_alpha()
-Leftpip = pygame.image.load('resources\images\Leftpip1.png')
-PolarBear1 = pygame.image.load('resources\images\Polarbear00.png')
-PolarBear2 = pygame.image.load('resources\images\Polarbear01.png')
-PolarBear3 = pygame.image.load('resources\images\Polarbear02.png')
-PolarBear4 = pygame.image.load('resources\images\Polarbear03.png')
-PolarBear5 = pygame.image.load('resources\images\Polarbear04.png')
-PolarBear6 = pygame.image.load('resources\images\Polarbear05.png')
-PolarBear7 = pygame.image.load('resources\images\Polarbear06.png')
-PolarBear8 = pygame.image.load('resources\images\Polarbear07.png')
-PolarBear9 = pygame.image.load('resources\images\Polarbear08.png')
-PolarBear10 = pygame.image.load('resources\images\Polarbear09.png')
-PolarBear11 = pygame.image.load('resources\images\Polarbear10.png')
-PolarBear12 = pygame.image.load('resources\images\Polarbear11.png')
+Leftpip = pygame.image.load('resources\images\Leftpip1.png').convert_alpha()
+PolarBear1 = pygame.image.load('resources\images\Polarbear00.png').convert_alpha()
+PolarBear2 = pygame.image.load('resources\images\Polarbear01.png').convert_alpha()
+PolarBear3 = pygame.image.load('resources\images\Polarbear02.png').convert_alpha()
+PolarBear4 = pygame.image.load('resources\images\Polarbear03.png').convert_alpha()
+PolarBear5 = pygame.image.load('resources\images\Polarbear04.png').convert_alpha()
+PolarBear6 = pygame.image.load('resources\images\Polarbear05.png').convert_alpha()
+PolarBear7 = pygame.image.load('resources\images\Polarbear06.png').convert_alpha()
+PolarBear8 = pygame.image.load('resources\images\Polarbear07.png').convert_alpha()
+PolarBear9 = pygame.image.load('resources\images\Polarbear08.png').convert_alpha()
+PolarBear10 = pygame.image.load('resources\images\Polarbear09.png').convert_alpha()
+PolarBear11 = pygame.image.load('resources\images\Polarbear10.png').convert_alpha()
+PolarBear12 = pygame.image.load('resources\images\Polarbear11.png').convert_alpha()
 
-PolarBearScary = pygame.image.load('resources\images\polarbearScary.png')
-Bird1 = pygame.image.load('resources\images\FlyingBird0.png')
-Bird2 = pygame.image.load('resources\images\FlyingBird1.png')
-Bird3 = pygame.image.load('resources\images\FlyingBird2.png')
-Bird4 = pygame.image.load('resources\images\FlyingBird3.png')
-Bird5 = pygame.image.load('resources\images\FlyingBird4.png')
-Bird6 = pygame.image.load('resources\images\FlyingBird5.png')
-Bird7 = pygame.image.load('resources\images\FlyingBird6.png')
-Bird8 = pygame.image.load('resources\images\FlyingBird7.png')
-
+PolarBearScary = pygame.image.load('resources\images\polarbearScary.png').convert_alpha()
+Bird1 = pygame.image.load('resources\images\FlyingBird0.png').convert_alpha()
+Bird2 = pygame.image.load('resources\images\FlyingBird1.png').convert_alpha()
+Bird3 = pygame.image.load('resources\images\FlyingBird2.png').convert_alpha()
+Bird4 = pygame.image.load('resources\images\FlyingBird3.png').convert_alpha()
+Bird5 = pygame.image.load('resources\images\FlyingBird4.png').convert_alpha()
+Bird6 = pygame.image.load('resources\images\FlyingBird5.png').convert_alpha()
+Bird7 = pygame.image.load('resources\images\FlyingBird6.png').convert_alpha()
+Bird8 = pygame.image.load('resources\images\FlyingBird7.png').convert_alpha()
 PolarbearAni = [PolarBear1, PolarBear2, PolarBear3, PolarBear4, PolarBear5, PolarBear6, PolarBear7, PolarBear8, PolarBear9, PolarBear10, PolarBear11]
 BirdAni = [Bird1, Bird2, Bird3, Bird4, Bird5, Bird6, Bird7, Bird8]
 FlossingPingvinBilleder = [pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin1.png').convert_alpha(),
@@ -84,6 +82,8 @@ FlossingPingvinBilleder = [pygame.image.load('resources\menu\FlossingPingvin\Flo
                            pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin4.png').convert_alpha(),
                            pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin5.png').convert_alpha(),
                            pygame.image.load('resources\menu\FlossingPingvin\FlossingPingvin6.png').convert_alpha()]
+deadPip = [image12, image13, image14, image15]
+
 # Pygame mixer
 
 pygame.mixer.init()
@@ -137,22 +137,22 @@ class Menu:
                     win.blit(Door1, (0, 0))
 
                 if self.Tid >= 16 and self.Tid <= 30:
-                    win.blit(image18, (self.xPos, self.yPos))
+                    win.blit(image17, (self.xPos, self.yPos))
 
                 elif self.Tid >= 30 and self.Tid <= 60:
                     win.blit(image1, (self.xPos, self.yPos))
 
                 elif self.Tid >= 60 and self.Tid <= 63:
-                    win.blit(image17, (self.xPos, self.yPos))
+                    win.blit(image16, (self.xPos, self.yPos))
                     self.yPos -= 5
                     print(self.xPos, self.yPos)
 
                 elif self.Tid >= 63 and self.Tid <= 68:
-                    win.blit(image17, (self.xPos, self.yPos))
+                    win.blit(image16, (self.xPos, self.yPos))
                     self.yPos += 15
                     print(self.xPos, self.yPos)
                 elif self.Tid >= 68 and self.Tid <= 73:
-                    win.blit(image18, (self.xPos, self.yPos))
+                    win.blit(image17, (self.xPos, self.yPos))
 
                 elif self.Tid >= 73 and self.Tid <= 170:
                     if self.WalkingAnimation > 2:
@@ -328,6 +328,7 @@ class Player1:
         win.blit(GameOver, (0, 25))
         win.blit(PlayAgain, (0, 25))
         pygame.display.update()
+
         RunMouseButton = True
         pause = True
         while pause:
@@ -344,6 +345,7 @@ class Player1:
                             pause = False
                             self.Jump = False
                             self.JumpCount = 8
+
 
     def Jumping(self):
         keys = pygame.key.get_pressed()
@@ -423,46 +425,6 @@ class Enemy:
         win.blit(PolarbearAni[self.WalkingAnimation], (20, 269))
         self.WalkingAnimation += 1
 
-
-
-def RedrawGameWindow():
-    if StopDrawing == False:
-        if startspil == True:
-            clock.tick(60)
-            movBGs.mountainBG()
-            movBGs.movingTrees()
-            movBGs.movingForeground()
-            pointSystem.PointSystem_On_Screen()
-            obstacle.drawTrstub(win)
-            obstacle.drawBird()
-            obstacle.move()
-            Player1.Jumping(0)
-            man.sprite(win)
-            obstacle.animationPolarbear()
-        else:
-            if PlayStart == True: #Resten af startscenen placeres herinde og laver en cutscene
-                Menu.MountainBG()
-                Menu.animation()
-            elif ControlsStart == True:
-                clock.tick(5)
-                Menu.MountainBG()
-                Menu.animation()
-                Menu.FlossingPingvin()
-                Menu.Door()
-                win.blit(controlsScreen, (0, 0))
-            elif QuitStart == True:
-                quit()
-            else:
-                clock.tick(5)
-                Menu.MountainBG()
-                Menu.animation()
-                Menu.jumpPenguinText()
-                Menu.FlossingPingvin()
-                Menu.Door()
-                Menu.PlayText()
-                Menu.ControlsText()
-                Menu.QuitText()
-
 class Buttons:
     mx, my = pygame.mouse.get_pos()
 
@@ -504,6 +466,44 @@ class Buttons:
                 RunMouseButton = False
                 RunMouseButton2 = False
                 QuitStart = True
+
+def RedrawGameWindow():
+    if StopDrawing == False:
+        if startspil == True:
+            clock.tick(60)
+            movBGs.mountainBG()
+            movBGs.movingTrees()
+            movBGs.movingForeground()
+            pointSystem.PointSystem_On_Screen()
+            obstacle.drawTrstub(win)
+            obstacle.drawBird()
+            obstacle.move()
+            Player1.Jumping(0)
+            man.sprite(win)
+            obstacle.animationPolarbear()
+        else:
+            if PlayStart == True: #Resten af startscenen placeres herinde og laver en cutscene
+                Menu.MountainBG()
+                Menu.animation()
+            elif ControlsStart == True:
+                clock.tick(5)
+                Menu.MountainBG()
+                Menu.animation()
+                Menu.FlossingPingvin()
+                Menu.Door()
+                win.blit(controlsScreen, (0, 0))
+            elif QuitStart == True:
+                quit()
+            else:
+                clock.tick(5)
+                Menu.MountainBG()
+                Menu.animation()
+                Menu.jumpPenguinText()
+                Menu.FlossingPingvin()
+                Menu.Door()
+                Menu.PlayText()
+                Menu.ControlsText()
+                Menu.QuitText()
 
 man = Player1(250, 269, 50, 50)
 obstacle = Enemy(1000, 325, 50, 50)
